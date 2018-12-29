@@ -73,10 +73,10 @@
 				`contract_end_block_url`	= #{contractEndBlockUrl},
 			</if>
 			<if test="addTime != null">
-				`add_time`	= #{addTime}
+				`add_time`	= #{addTime},
 			</if>
 			<if test="txId != null">
-				`tx_id`	= #{txId}
+				`tx_id`	= #{txId},
 			</if>
 			<if test="program != null">
 				`program` = #{program}

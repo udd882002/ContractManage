@@ -132,7 +132,7 @@ public class BytomUtil {
 
         logger.info("after transaction.");
 
-        return txs.toJson();
+        return txs.tx_id;
     }
 
     /**

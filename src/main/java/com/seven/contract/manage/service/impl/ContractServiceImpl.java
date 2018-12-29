@@ -488,10 +488,14 @@ public class ContractServiceImpl implements ContractService {
 				String program = BytomUtil.compile(signatures);
 				String txId = BytomUtil.locked(program);
 
+				logger.debug("program = {}, txId = {}", program, txId);
+
 				//记录program和txId
 				contract.setProgram(program);
 				contract.setTxId(txId);
 				contractDao.update(contract);
+
+				logger.debug("return true contract = {}", JSON.toJSONString(contract));
 
 				return true;
 			}
