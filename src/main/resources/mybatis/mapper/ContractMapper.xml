@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seven.contract.manage.dao.ContractDao">
+	<insert id="insert" parameterType="com.seven.contract.manage.model.Contract" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO `contract`(
+			`contract_name`,
+			`contract_no`,
+			`start_time`,
+			`end_time`,
+			`complete_time`,
+			`status`,
+			`remark`,
+			`secret_contract`,
+			`contract_url`,
+			`contract_start_block_url`,
+			`contract_end_block_url`,
+			`add_time`,
+			`tx_id`,
+			`program`
+		)
+		VALUES (
+			#{contractName},
+			#{contractNo},
+			#{startTime},
+			#{endTime},
+			#{completeTime},
+			#{status},
+			#{remark},
+			#{secretContract},
+			#{contractUrl},
+			#{contractStartBlockUrl},
+			#{contractEndBlockUrl},
+			#{addTime},
+			#{txId},
+			#{program}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.seven.contract.manage.model.Contract">
+		UPDATE `contract`
+		<set>
+			<if test="contractName != null">
+				`contract_name`	= #{contractName},
+			</if>
+			<if test="contractNo != null">
+				`contract_no`	= #{contractNo},
+			</if>
+			<if test="startTime != null">
+				`start_time`	= #{startTime},
+			</if>
+			<if test="endTime != null">
+				`end_time`	= #{endTime},
+			</if>
+			<if test="completeTime != null">
+				`complete_time` = #{completeTime},
+			</if >
+			<if test="status != null">
+				`status`	= #{status},
+			</if>
+			<if test="remark != null">
+				`remark`	= #{remark},
+			</if>
+			<if test="secretContract != null">
+				`secret_contract`	= #{secretContract},
+			</if>
+			<if test="contractUrl != null">
+				`contract_url`	= #{contractUrl},
+			</if>
+			<if test="contractStartBlockUrl != null">
+				`contract_start_block_url`	= #{contractStartBlockUrl},
+			</if>
+			<if test="contractEndBlockUrl != null">
+				`contract_end_block_url`	= #{contractEndBlockUrl},
+			</if>
+			<if test="addTime != null">
+				`add_time`	= #{addTime}
+			</if>
+			<if test="txId != null">
+				`tx_id`	= #{txId}
+			</if>
+			<if test="program != null">
+				`program` = #{program}
+			</if>
+		</set>
+		WHERE id = #{id}
+	</update>
+
+	<select id="selectOne" parameterType="long" resultType="com.seven.contract.manage.model.Contract">
+		<include refid="sql_select"/>
+		WHERE `id` = #{id}
+	</select>
+
+
+	<delete id="deleteById" parameterType="long">
+		DELETE FROM contract WHERE `id` = #{id}
+	</delete>
+
+
+	<select id="selectList" parameterType="map" resultType="com.seven.contract.manage.model.Contract">
+		<include refid="sql_select"/>
+		<include refid="sql_where"/>
+	</select>
+
+
+	<select id="totalRows" parameterType="map" resultType="long" >
+		select count(1) from contract
+		<include refid="sql_where"/>
+	</select>
+
+
+	<sql id="sql_limit">
+		Limit #{startRow},#{pageSize}
+	</sql>
+
+
+	<sql id="sql_select">
+		select
+			`id`	AS id,
+			`contract_name`	AS contractName,
+			`contract_no`	AS contractNo,
+			`start_time`	AS startTime,
+			`end_time`	AS endTime,
+			`complete_time` AS completeTime,
+			`status`	AS status,
+			`remark`	AS remark,
+			`secret_contract`	AS secretContract,
+			`contract_url`	AS contractUrl,
+			`contract_start_block_url`	AS contractStartBlockUrl,
+			`contract_end_block_url`	AS contractEndBlockUrl,
+			`add_time`	AS addTime,
+			`tx_id` AS txId,
+			`program` AS program
+		FROM contract
+	</sql>
+
+
+	<sql id="sql_where">
+		<where>
+			<if test="id != null and id != 0">
+				AND id = #{id}
+			</if>
+			<if test="contractName != null and contractName != ''">
+				AND contract_name = #{contractName}
+			</if>
+			<if test="contractNo != null and contractNo != ''">
+				AND contract_no = #{contractNo}
+			</if>
+			<if test="completeTime != null and completeTime != ''">
+				AND complete_time = #{completeTime}
+			</if>
+			<if test="status != null and status != ''">
+				AND status = #{status}
+			</if>
+			<if test="remark != null and remark != ''">
+				AND remark = #{remark}
+			</if>
+			<if test="secretContract != null and secretContract != ''">
+				AND secret_contract = #{secretContract}
+			</if>
+			<if test="contractUrl != null and contractUrl != ''">
+				AND contract_url = #{contractUrl}
+			</if>
+			<if test="contractStartBlockUrl != null and contractStartBlockUrl != ''">
+				AND contract_start_block_url = #{contractStartBlockUrl}
+			</if>
+			<if test="contractEndBlockUrl != null and contractEndBlockUrl != ''">
+				AND contract_end_block_url = #{contractEndBlockUrl}
+			</if>
+			<if test="unlock != null and unlock != ''">
+				AND tx_id IS NOT NULL AND program IS NOT NULL
+			</if>
+		</where>
+	</sql>
+
+	<select id="selectListByManage" parameterType="map" resultType="com.seven.contract.manage.vo.ContractVo">
+		select
+			c.id AS id,
+		    c.contract_name AS contractName,
+			j.mid AS mid,
+			j.name AS name,
+			j.status AS status,
+			j.sign_time AS signTime,
+			c.start_time AS startTime,
+			c.end_time AS endTime,
+			j.role AS role,
+			c.add_time AS addTime
+		from contract c, contract_join j
+		<where>
+			c.id = j.contract_id
+			AND j.mid = #{mid}
+			<if test="type == 'ALL'">
+				AND j.status != 'draft'
+			</if>
+			<if test="type == 'MINE'">
+				AND j.status = 'waitmine'
+			</if>
+			<if test="type == 'OTHER'">
+				AND j.status = 'waitother'
+			</if>
+			<if test="type == 'COMPLETE'">
+				AND j.status = 'complete'
+			</if>
+			<if test="type == 'REFUSE'">
+				AND (j.status = 'refuse' OR j.status = 'refuseother')
+			</if>
+			<if test="type == 'DRAFT'">
+				AND j.status = 'draft' AND j.role = 'initiator'
+			</if>
+			<if test="type == 'EXPIRE'">
+				AND c.status = 'signing' AND TIMESTAMPDIFF(DAY, NOW(), c.end_time) BETWEEN 0 AND 7
+			</if>
+		</where>
+	</select>
+</mapper>

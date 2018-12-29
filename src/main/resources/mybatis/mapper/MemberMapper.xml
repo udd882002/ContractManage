@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seven.contract.manage.dao.MemberDao">
+	<insert id="insert" parameterType="com.seven.contract.manage.model.Member" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO `member`(
+			`name`,
+			`public_keys`,
+			`phone`,
+			`id_card`,
+			`member_img`,
+			`id_card_front_img`,
+			`id_card_back_img`,
+			`private_keys_file_url`,
+			`company`,
+			`position`,
+			`add_time`
+)
+		VALUES (
+			#{name},
+			#{publicKeys},
+			#{phone},
+			#{idCard},
+			#{memberImg},
+			#{idCardFrontImg},
+			#{idCardBackImg},
+			#{privateKeysFileUrl},
+			#{company},
+			#{position},
+			#{addTime}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.seven.contract.manage.model.Member">
+		UPDATE `member`
+		<set>
+			<if test="name != null">
+				`name`	= #{name},
+			</if>
+			<if test="publicKeys != null">
+				`public_keys`	= #{publicKeys},
+			</if>
+			<if test="phone != null">
+				`phone`	= #{phone},
+			</if>
+			<if test="idCard != null">
+				`id_card`	= #{idCard},
+			</if>
+			<if test="memberImg != null">
+				`member_img`	= #{memberImg},
+			</if>
+			<if test="idCardFrontImg != null">
+				`id_card_front_img`	= #{idCardFrontImg},
+			</if>
+			<if test="idCardBackImg != null">
+				`id_card_back_img`	= #{idCardBackImg},
+			</if>
+			<if test="privateKeysFileUrl != null">
+				`private_keys_file_url`	= #{privateKeysFileUrl},
+			</if>
+			<if test="company != null">
+				`company`	= #{company},
+			</if>
+			<if test="position != null">
+				`position`	= #{position},
+			</if>
+			<if test="addTime != null">
+				`add_time`	= #{addTime}
+			</if>
+		</set>
+		WHERE id = #{id}
+	</update>
+
+	<select id="selectOne" parameterType="long" resultType="com.seven.contract.manage.model.Member">
+		<include refid="sql_select"/>
+		WHERE `id` = #{id}
+	</select>
+
+
+	<delete id="deleteById" parameterType="long">
+		DELETE FROM member WHERE `id` = #{id}
+	</delete>
+
+
+	<select id="selectList" parameterType="map" resultType="com.seven.contract.manage.model.Member">
+		<include refid="sql_select"/>
+		<include refid="sql_where"/>
+	</select>
+
+
+	<select id="totalRows" parameterType="map" resultType="long" >
+		select count(1) from member
+		<include refid="sql_where"/>
+	</select>
+
+
+	<sql id="sql_limit">
+		<if test="startRow != null and pageSize != null">
+			Limit #{startRow},#{pageSize}
+		</if>
+	</sql>
+
+
+	<sql id="sql_select">
+		select
+			`id`	AS id,
+			`name`	AS name,
+			`public_keys`	AS publicKeys,
+			`phone`	AS phone,
+			`id_card` AS idCard,
+			`member_img` AS memberImg,
+			`id_card_front_img`	AS idCardFrontImg,
+			`id_card_back_img`	AS idCardBackImg,
+			`private_keys_file_url`	AS privateKeysFileUrl,
+			`company`	AS company,
+			`position`	AS position,
+			`add_time`	AS addTime
+		FROM member
+	</sql>
+
+
+	<sql id="sql_where">
+		<where>
+			<if test="id != null and id != 0">
+				AND id = #{id}
+			</if>
+			<if test="name != null and name != ''">
+				AND name = #{name}
+			</if>
+			<if test="publicKeys != null and publicKeys != ''">
+				AND public_keys = #{publicKeys}
+			</if>
+			<if test="phone != null and phone != ''">
+				AND phone = #{phone}
+			</if>
+			<if test="idCard != null and idCard != ''">
+				AND id_card = #{idCard}
+			</if>
+			<if test="memberImg != null and memberImg != ''">
+				AND member_img = #{memberImg}
+			</if>
+			<if test="idCardFrontImg != null and idCardFrontImg != ''">
+				AND id_card_front_img = #{idCardFrontImg}
+			</if>
+			<if test="idCardBackImg != null and idCardBackImg != ''">
+				AND id_card_back_img = #{idCardBackImg}
+			</if>
+			<if test="privateKeysFileUrl != null and privateKeysFileUrl != ''">
+				AND private_keys_file_url = #{privateKeysFileUrl}
+			</if>
+			<if test="company != null and company != ''">
+				AND company = #{company}
+			</if>
+			<if test="position != null and position != ''">
+				AND position = #{position}
+			</if>
+		</where>
+	</sql>
+
+	<select id="selectOneByPhone" parameterType="String" resultType="com.seven.contract.manage.model.Member">
+		<include refid="sql_select"/>
+		WHERE `phone` = #{phone}
+	</select>
+
+	<select id="selectOneByPublicKeys" parameterType="String" resultType="com.seven.contract.manage.model.Member">
+		<include refid="sql_select"/>
+		WHERE `public_keys` = #{publicKeys}
+	</select>
+
+</mapper>

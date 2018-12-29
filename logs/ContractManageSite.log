@@ -1,0 +1,287 @@
+2018-12-28 00:25:04.672  INFO 2270 --- [main] c.s.c.m.ContractManageApplicationTests   : Starting ContractManageApplicationTests on devil-MBP.lan with PID 2270 (started by apple in /Users/apple/Workspaces/ContractManageSite)
+2018-12-28 00:25:04.684 DEBUG 2270 --- [main] c.s.c.m.ContractManageApplicationTests   : Running with Spring Boot v2.1.1.RELEASE, Spring v5.1.3.RELEASE
+2018-12-28 00:25:04.691  INFO 2270 --- [main] c.s.c.m.ContractManageApplicationTests   : No active profile set, falling back to default profiles: default
+2018-12-28 00:25:04.799 DEBUG 2270 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@4bff7da0
+2018-12-28 00:25:10.127 DEBUG 2270 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/**/favicon.ico] in 'faviconHandlerMapping'
+2018-12-28 00:25:10.491 DEBUG 2270 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2018-12-28 00:25:10.644 DEBUG 2270 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 35 mappings in 'requestMappingHandlerMapping'
+2018-12-28 00:25:10.675 DEBUG 2270 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2018-12-28 00:25:10.696 DEBUG 2270 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2018-12-28 00:25:11.196  INFO 2270 --- [main] c.s.c.m.ContractManageApplicationTests   : Started ContractManageApplicationTests in 7.72 seconds (JVM running for 8.909)
+2018-12-28 00:25:11.622 DEBUG 2270 --- [Thread-2] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@4bff7da0, started on Fri Dec 28 00:25:04 CST 2018
+2018-12-28 00:50:04.546  INFO 2329 --- [main] c.s.c.m.ContractManageApplicationTests   : Starting ContractManageApplicationTests on devil-MBP.lan with PID 2329 (started by apple in /Users/apple/Workspaces/ContractManageSite)
+2018-12-28 00:50:04.550 DEBUG 2329 --- [main] c.s.c.m.ContractManageApplicationTests   : Running with Spring Boot v2.1.1.RELEASE, Spring v5.1.3.RELEASE
+2018-12-28 00:50:04.553  INFO 2329 --- [main] c.s.c.m.ContractManageApplicationTests   : No active profile set, falling back to default profiles: default
+2018-12-28 00:50:04.601 DEBUG 2329 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@57a3e26a
+2018-12-28 00:50:08.858 DEBUG 2329 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/**/favicon.ico] in 'faviconHandlerMapping'
+2018-12-28 00:50:09.172 DEBUG 2329 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2018-12-28 00:50:09.299 DEBUG 2329 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 35 mappings in 'requestMappingHandlerMapping'
+2018-12-28 00:50:09.346 DEBUG 2329 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2018-12-28 00:50:09.368 DEBUG 2329 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2018-12-28 00:50:10.039  INFO 2329 --- [main] c.s.c.m.ContractManageApplicationTests   : Started ContractManageApplicationTests in 6.108 seconds (JVM running for 7.345)
+2018-12-28 00:50:10.770 DEBUG 2329 --- [Thread-2] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@57a3e26a, started on Fri Dec 28 00:50:04 CST 2018
+2018-12-28 09:37:47.347  INFO 642 --- [main] c.s.c.m.ContractManageApplicationTests   : Starting ContractManageApplicationTests on devil-MBP.lan with PID 642 (started by apple in /Users/apple/Workspaces/ContractManageSite)
+2018-12-28 09:37:47.348 DEBUG 642 --- [main] c.s.c.m.ContractManageApplicationTests   : Running with Spring Boot v2.1.1.RELEASE, Spring v5.1.3.RELEASE
+2018-12-28 09:37:47.352  INFO 642 --- [main] c.s.c.m.ContractManageApplicationTests   : No active profile set, falling back to default profiles: default
+2018-12-28 09:37:47.577 DEBUG 642 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@3f1d2e23
+2018-12-28 09:37:52.349 DEBUG 642 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/**/favicon.ico] in 'faviconHandlerMapping'
+2018-12-28 09:37:52.654 DEBUG 642 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2018-12-28 09:37:52.785 DEBUG 642 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 35 mappings in 'requestMappingHandlerMapping'
+2018-12-28 09:37:52.810 DEBUG 642 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2018-12-28 09:37:52.833 DEBUG 642 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2018-12-28 09:37:53.340  INFO 642 --- [main] c.s.c.m.ContractManageApplicationTests   : Started ContractManageApplicationTests in 7.125 seconds (JVM running for 9.237)
+2018-12-28 09:37:53.708 DEBUG 642 --- [Thread-2] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@3f1d2e23, started on Fri Dec 28 09:37:47 CST 2018
+2018-12-28 09:43:28.917  INFO 681 --- [main] c.s.c.m.ContractManageApplicationTests   : Starting ContractManageApplicationTests on devil-MBP.lan with PID 681 (started by apple in /Users/apple/Workspaces/ContractManageSite)
+2018-12-28 09:43:28.919 DEBUG 681 --- [main] c.s.c.m.ContractManageApplicationTests   : Running with Spring Boot v2.1.1.RELEASE, Spring v5.1.3.RELEASE
+2018-12-28 09:43:28.926  INFO 681 --- [main] c.s.c.m.ContractManageApplicationTests   : No active profile set, falling back to default profiles: default
+2018-12-28 09:43:29.068 DEBUG 681 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@4bff7da0
+2018-12-28 09:43:33.653 DEBUG 681 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/**/favicon.ico] in 'faviconHandlerMapping'
+2018-12-28 09:43:34.081 DEBUG 681 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2018-12-28 09:43:34.272 DEBUG 681 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 35 mappings in 'requestMappingHandlerMapping'
+2018-12-28 09:43:34.340 DEBUG 681 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2018-12-28 09:43:34.392 DEBUG 681 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2018-12-28 09:43:35.148  INFO 681 --- [main] c.s.c.m.ContractManageApplicationTests   : Started ContractManageApplicationTests in 6.819 seconds (JVM running for 7.959)
+2018-12-28 09:43:36.004 DEBUG 681 --- [Thread-2] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@4bff7da0, started on Fri Dec 28 09:43:29 CST 2018
+2018-12-28 09:57:36.525  INFO 723 --- [main] c.s.c.m.ContractManageApplicationTests   : Starting ContractManageApplicationTests on devil-MBP.lan with PID 723 (started by apple in /Users/apple/Workspaces/ContractManageSite)
+2018-12-28 09:57:36.527 DEBUG 723 --- [main] c.s.c.m.ContractManageApplicationTests   : Running with Spring Boot v2.1.1.RELEASE, Spring v5.1.3.RELEASE
+2018-12-28 09:57:36.530  INFO 723 --- [main] c.s.c.m.ContractManageApplicationTests   : No active profile set, falling back to default profiles: default
+2018-12-28 09:57:36.598 DEBUG 723 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@3f1d2e23
+2018-12-28 09:57:40.356 DEBUG 723 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/**/favicon.ico] in 'faviconHandlerMapping'
+2018-12-28 09:57:40.659 DEBUG 723 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2018-12-28 09:57:40.779 DEBUG 723 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 35 mappings in 'requestMappingHandlerMapping'
+2018-12-28 09:57:40.807 DEBUG 723 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2018-12-28 09:57:40.824 DEBUG 723 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2018-12-28 09:57:41.272  INFO 723 --- [main] c.s.c.m.ContractManageApplicationTests   : Started ContractManageApplicationTests in 5.42 seconds (JVM running for 6.734)
+2018-12-28 09:57:41.598 DEBUG 723 --- [Thread-2] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@3f1d2e23, started on Fri Dec 28 09:57:36 CST 2018
+2018-12-28 10:01:55.721  INFO 740 --- [main] c.s.c.m.ContractManageApplicationTests   : Starting ContractManageApplicationTests on devil-MBP.lan with PID 740 (started by apple in /Users/apple/Workspaces/ContractManageSite)
+2018-12-28 10:01:55.722 DEBUG 740 --- [main] c.s.c.m.ContractManageApplicationTests   : Running with Spring Boot v2.1.1.RELEASE, Spring v5.1.3.RELEASE
+2018-12-28 10:01:55.726  INFO 740 --- [main] c.s.c.m.ContractManageApplicationTests   : No active profile set, falling back to default profiles: default
+2018-12-28 10:01:55.813 DEBUG 740 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@4bff7da0
+2018-12-28 10:02:00.605 DEBUG 740 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/**/favicon.ico] in 'faviconHandlerMapping'
+2018-12-28 10:02:01.002 DEBUG 740 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2018-12-28 10:02:01.159 DEBUG 740 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 35 mappings in 'requestMappingHandlerMapping'
+2018-12-28 10:02:01.202 DEBUG 740 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2018-12-28 10:02:01.307 DEBUG 740 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2018-12-28 10:02:01.918  INFO 740 --- [main] c.s.c.m.ContractManageApplicationTests   : Started ContractManageApplicationTests in 6.793 seconds (JVM running for 8.126)
+2018-12-28 10:02:02.279 DEBUG 740 --- [Thread-2] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@4bff7da0, started on Fri Dec 28 10:01:55 CST 2018
+2018-12-28 10:08:32.616  INFO 870 --- [main] c.s.c.m.ContractManageApplicationTests   : Starting ContractManageApplicationTests on devil-MBP.lan with PID 870 (started by apple in /Users/apple/Workspaces/ContractManageSite)
+2018-12-28 10:08:32.618 DEBUG 870 --- [main] c.s.c.m.ContractManageApplicationTests   : Running with Spring Boot v2.1.1.RELEASE, Spring v5.1.3.RELEASE
+2018-12-28 10:08:32.621  INFO 870 --- [main] c.s.c.m.ContractManageApplicationTests   : No active profile set, falling back to default profiles: default
+2018-12-28 10:08:32.662 DEBUG 870 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@4ef74c30
+2018-12-28 10:08:36.329 DEBUG 870 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/**/favicon.ico] in 'faviconHandlerMapping'
+2018-12-28 10:08:36.649 DEBUG 870 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2018-12-28 10:08:36.765 DEBUG 870 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 35 mappings in 'requestMappingHandlerMapping'
+2018-12-28 10:08:36.808 DEBUG 870 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2018-12-28 10:08:36.827 DEBUG 870 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2018-12-28 10:08:37.280  INFO 870 --- [main] c.s.c.m.ContractManageApplicationTests   : Started ContractManageApplicationTests in 5.254 seconds (JVM running for 6.259)
+2018-12-28 10:08:37.564 DEBUG 870 --- [Thread-2] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@4ef74c30, started on Fri Dec 28 10:08:32 CST 2018
+2018-12-28 10:24:53.710  INFO 962 --- [main] c.s.c.m.ContractManageApplicationTests   : Starting ContractManageApplicationTests on devil-MBP.lan with PID 962 (started by apple in /Users/apple/Workspaces/ContractManageSite)
+2018-12-28 10:24:53.712 DEBUG 962 --- [main] c.s.c.m.ContractManageApplicationTests   : Running with Spring Boot v2.1.1.RELEASE, Spring v5.1.3.RELEASE
+2018-12-28 10:24:53.717  INFO 962 --- [main] c.s.c.m.ContractManageApplicationTests   : No active profile set, falling back to default profiles: default
+2018-12-28 10:24:53.774 DEBUG 962 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@4bff7da0
+2018-12-28 10:24:58.233 DEBUG 962 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/**/favicon.ico] in 'faviconHandlerMapping'
+2018-12-28 10:24:58.572 DEBUG 962 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2018-12-28 10:24:58.729 DEBUG 962 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 35 mappings in 'requestMappingHandlerMapping'
+2018-12-28 10:24:58.765 DEBUG 962 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2018-12-28 10:24:58.786 DEBUG 962 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2018-12-28 10:24:59.348  INFO 962 --- [main] c.s.c.m.ContractManageApplicationTests   : Started ContractManageApplicationTests in 6.229 seconds (JVM running for 7.461)
+2018-12-28 10:24:59.769 DEBUG 962 --- [Thread-2] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@4bff7da0, started on Fri Dec 28 10:24:53 CST 2018
+2018-12-28 14:05:23.274  INFO 1174 --- [main] c.s.c.m.ContractManageApplicationTests   : Starting ContractManageApplicationTests on devil-MBP.lan with PID 1174 (started by apple in /Users/apple/Workspaces/ContractManageSite)
+2018-12-28 14:05:23.280 DEBUG 1174 --- [main] c.s.c.m.ContractManageApplicationTests   : Running with Spring Boot v2.1.1.RELEASE, Spring v5.1.3.RELEASE
+2018-12-28 14:05:23.296  INFO 1174 --- [main] c.s.c.m.ContractManageApplicationTests   : No active profile set, falling back to default profiles: default
+2018-12-28 14:05:23.455 DEBUG 1174 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@4bff7da0
+2018-12-28 14:05:29.096 DEBUG 1174 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/**/favicon.ico] in 'faviconHandlerMapping'
+2018-12-28 14:05:29.502 DEBUG 1174 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2018-12-28 14:05:29.728 DEBUG 1174 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 36 mappings in 'requestMappingHandlerMapping'
+2018-12-28 14:05:29.774 DEBUG 1174 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2018-12-28 14:05:29.824 DEBUG 1174 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2018-12-28 14:05:30.524  INFO 1174 --- [main] c.s.c.m.ContractManageApplicationTests   : Started ContractManageApplicationTests in 8.134 seconds (JVM running for 10.002)
+2018-12-28 14:05:31.197 DEBUG 1174 --- [Thread-2] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@4bff7da0, started on Fri Dec 28 14:05:23 CST 2018
+2018-12-28 15:48:27.391  INFO 1325 --- [main] c.s.c.m.ContractManageApplicationTests   : Starting ContractManageApplicationTests on devil-MBP.lan with PID 1325 (started by apple in /Users/apple/Workspaces/ContractManageSite)
+2018-12-28 15:48:27.399 DEBUG 1325 --- [main] c.s.c.m.ContractManageApplicationTests   : Running with Spring Boot v2.1.1.RELEASE, Spring v5.1.3.RELEASE
+2018-12-28 15:48:27.404  INFO 1325 --- [main] c.s.c.m.ContractManageApplicationTests   : No active profile set, falling back to default profiles: default
+2018-12-28 15:48:27.661 DEBUG 1325 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@1890516e
+2018-12-28 15:48:33.335 DEBUG 1325 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/**/favicon.ico] in 'faviconHandlerMapping'
+2018-12-28 15:48:33.677 DEBUG 1325 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2018-12-28 15:48:33.823 DEBUG 1325 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 36 mappings in 'requestMappingHandlerMapping'
+2018-12-28 15:48:33.858 DEBUG 1325 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2018-12-28 15:48:33.878 DEBUG 1325 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2018-12-28 15:48:34.412  INFO 1325 --- [main] c.s.c.m.ContractManageApplicationTests   : Started ContractManageApplicationTests in 8.698 seconds (JVM running for 10.435)
+2018-12-28 15:48:34.845 DEBUG 1325 --- [Thread-2] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@1890516e, started on Fri Dec 28 15:48:27 CST 2018
+2018-12-28 16:29:56.472  INFO 1371 --- [main] c.s.c.manage.ContractManageApplication   : Starting ContractManageApplication on devil-MBP.lan with PID 1371 (/Users/apple/Workspaces/ContractManageSite/target/classes started by apple in /Users/apple/Workspaces/ContractManageSite)
+2018-12-28 16:29:56.513 DEBUG 1371 --- [main] c.s.c.manage.ContractManageApplication   : Running with Spring Boot v2.1.1.RELEASE, Spring v5.1.3.RELEASE
+2018-12-28 16:29:56.518  INFO 1371 --- [main] c.s.c.manage.ContractManageApplication   : No active profile set, falling back to default profiles: default
+2018-12-28 16:30:00.198 DEBUG 1371 --- [main] o.s.web.context.ContextLoader            : Published root WebApplicationContext as ServletContext attribute with name [org.springframework.web.context.WebApplicationContext.ROOT]
+2018-12-28 16:30:00.199  INFO 1371 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 3421 ms
+2018-12-28 16:30:00.337 DEBUG 1371 --- [main] o.springframework.web.filter.CorsFilter  : Filter 'corsFilter' configured for use
+2018-12-28 16:30:02.317 DEBUG 1371 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/**/favicon.ico] in 'faviconHandlerMapping'
+2018-12-28 16:30:02.688 DEBUG 1371 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2018-12-28 16:30:02.835 DEBUG 1371 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 36 mappings in 'requestMappingHandlerMapping'
+2018-12-28 16:30:02.858 DEBUG 1371 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2018-12-28 16:30:02.874 DEBUG 1371 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2018-12-28 16:30:03.270  INFO 1371 --- [main] c.s.c.manage.ContractManageApplication   : Started ContractManageApplication in 8.6 seconds (JVM running for 9.791)
+2018-12-28 16:32:33.156  INFO 1376 --- [main] c.s.c.manage.ContractManageApplication   : Starting ContractManageApplication on devil-MBP.lan with PID 1376 (/Users/apple/Workspaces/ContractManageSite/target/classes started by apple in /Users/apple/Workspaces/ContractManageSite)
+2018-12-28 16:32:33.160 DEBUG 1376 --- [main] c.s.c.manage.ContractManageApplication   : Running with Spring Boot v2.1.1.RELEASE, Spring v5.1.3.RELEASE
+2018-12-28 16:32:33.174  INFO 1376 --- [main] c.s.c.manage.ContractManageApplication   : No active profile set, falling back to default profiles: default
+2018-12-28 16:32:36.430 DEBUG 1376 --- [main] o.s.web.context.ContextLoader            : Published root WebApplicationContext as ServletContext attribute with name [org.springframework.web.context.WebApplicationContext.ROOT]
+2018-12-28 16:32:36.431  INFO 1376 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 3066 ms
+2018-12-28 16:32:36.556 DEBUG 1376 --- [main] o.springframework.web.filter.CorsFilter  : Filter 'corsFilter' configured for use
+2018-12-28 16:32:38.033 DEBUG 1376 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/**/favicon.ico] in 'faviconHandlerMapping'
+2018-12-28 16:32:38.330 DEBUG 1376 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2018-12-28 16:32:38.467 DEBUG 1376 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 36 mappings in 'requestMappingHandlerMapping'
+2018-12-28 16:32:38.489 DEBUG 1376 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2018-12-28 16:32:38.504 DEBUG 1376 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2018-12-28 16:32:38.858  INFO 1376 --- [main] c.s.c.manage.ContractManageApplication   : Started ContractManageApplication in 6.878 seconds (JVM running for 7.986)
+2018-12-28 16:33:00.004 DEBUG 1376 --- [scheduling-1] c.s.c.m.c.contract.ContractController    : unlockTransaction start
+2018-12-28 16:33:00.105 DEBUG 1376 --- [scheduling-1] c.s.c.manage.dao.ContractDao.selectList  : ==>  Preparing: select `id` AS id, `contract_name` AS contractName, `contract_no` AS contractNo, `start_time` AS startTime, `end_time` AS endTime, `complete_time` AS completeTime, `status` AS status, `remark` AS remark, `secret_contract` AS secretContract, `contract_url` AS contractUrl, `contract_start_block_url` AS contractStartBlockUrl, `contract_end_block_url` AS contractEndBlockUrl, `add_time` AS addTime, `tx_id` AS txId, `program` AS program FROM contract WHERE status = ? AND tx_id IS NOT NULL AND program IS NOT NULL 
+2018-12-28 16:33:00.334 DEBUG 1376 --- [scheduling-1] c.s.c.manage.dao.ContractDao.selectList  : ==> Parameters: registered(String)
+2018-12-28 16:33:00.403 DEBUG 1376 --- [scheduling-1] c.s.c.manage.dao.ContractDao.selectList  : <==      Total: 0
+2018-12-28 16:33:00.408 DEBUG 1376 --- [scheduling-1] c.s.c.m.c.contract.ContractController    : unlockTransaction end
+2018-12-28 16:33:30.003 DEBUG 1376 --- [scheduling-1] c.s.c.m.c.contract.ContractController    : unlockTransaction start
+2018-12-28 16:33:30.014 DEBUG 1376 --- [scheduling-1] c.s.c.manage.dao.ContractDao.selectList  : ==>  Preparing: select `id` AS id, `contract_name` AS contractName, `contract_no` AS contractNo, `start_time` AS startTime, `end_time` AS endTime, `complete_time` AS completeTime, `status` AS status, `remark` AS remark, `secret_contract` AS secretContract, `contract_url` AS contractUrl, `contract_start_block_url` AS contractStartBlockUrl, `contract_end_block_url` AS contractEndBlockUrl, `add_time` AS addTime, `tx_id` AS txId, `program` AS program FROM contract WHERE status = ? AND tx_id IS NOT NULL AND program IS NOT NULL 
+2018-12-28 16:33:30.014 DEBUG 1376 --- [scheduling-1] c.s.c.manage.dao.ContractDao.selectList  : ==> Parameters: registered(String)
+2018-12-28 16:33:30.016 DEBUG 1376 --- [scheduling-1] c.s.c.manage.dao.ContractDao.selectList  : <==      Total: 0
+2018-12-28 16:33:30.017 DEBUG 1376 --- [scheduling-1] c.s.c.m.c.contract.ContractController    : unlockTransaction end
+2018-12-28 16:35:29.130  INFO 1381 --- [main] c.s.c.m.ContractManageApplicationTests   : Starting ContractManageApplicationTests on devil-MBP.lan with PID 1381 (started by apple in /Users/apple/Workspaces/ContractManageSite)
+2018-12-28 16:35:29.133 DEBUG 1381 --- [main] c.s.c.m.ContractManageApplicationTests   : Running with Spring Boot v2.1.1.RELEASE, Spring v5.1.3.RELEASE
+2018-12-28 16:35:29.138  INFO 1381 --- [main] c.s.c.m.ContractManageApplicationTests   : No active profile set, falling back to default profiles: default
+2018-12-28 16:35:29.184 DEBUG 1381 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@21d03963
+2018-12-28 16:35:33.303 DEBUG 1381 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/**/favicon.ico] in 'faviconHandlerMapping'
+2018-12-28 16:35:33.863 DEBUG 1381 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2018-12-28 16:35:34.005 DEBUG 1381 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 36 mappings in 'requestMappingHandlerMapping'
+2018-12-28 16:35:34.039 DEBUG 1381 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2018-12-28 16:35:34.059 DEBUG 1381 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2018-12-28 16:35:34.568  INFO 1381 --- [main] c.s.c.m.ContractManageApplicationTests   : Started ContractManageApplicationTests in 6.011 seconds (JVM running for 7.369)
+2018-12-28 16:35:34.971 DEBUG 1381 --- [Thread-2] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@21d03963, started on Fri Dec 28 16:35:29 CST 2018
+2018-12-28 16:45:47.391  INFO 1432 --- [main] c.s.c.m.ContractManageApplicationTests   : Starting ContractManageApplicationTests on devil-MBP.lan with PID 1432 (started by apple in /Users/apple/Workspaces/ContractManageSite)
+2018-12-28 16:45:47.393 DEBUG 1432 --- [main] c.s.c.m.ContractManageApplicationTests   : Running with Spring Boot v2.1.1.RELEASE, Spring v5.1.3.RELEASE
+2018-12-28 16:45:47.396  INFO 1432 --- [main] c.s.c.m.ContractManageApplicationTests   : No active profile set, falling back to default profiles: default
+2018-12-28 16:45:47.462 DEBUG 1432 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@18ece7f4
+2018-12-28 16:45:52.898 DEBUG 1432 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/**/favicon.ico] in 'faviconHandlerMapping'
+2018-12-28 16:45:53.296 DEBUG 1432 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2018-12-28 16:45:53.453 DEBUG 1432 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 36 mappings in 'requestMappingHandlerMapping'
+2018-12-28 16:45:53.484 DEBUG 1432 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2018-12-28 16:45:53.508 DEBUG 1432 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2018-12-28 16:45:54.057  INFO 1432 --- [main] c.s.c.m.ContractManageApplicationTests   : Started ContractManageApplicationTests in 7.354 seconds (JVM running for 8.943)
+2018-12-28 16:45:54.468 DEBUG 1432 --- [Thread-2] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@18ece7f4, started on Fri Dec 28 16:45:47 CST 2018
+2018-12-28 16:57:30.574  INFO 1498 --- [main] c.s.c.m.ContractManageApplicationTests   : Starting ContractManageApplicationTests on devil-MBP.lan with PID 1498 (started by apple in /Users/apple/Workspaces/ContractManageSite)
+2018-12-28 16:57:30.578 DEBUG 1498 --- [main] c.s.c.m.ContractManageApplicationTests   : Running with Spring Boot v2.1.1.RELEASE, Spring v5.1.3.RELEASE
+2018-12-28 16:57:30.582  INFO 1498 --- [main] c.s.c.m.ContractManageApplicationTests   : No active profile set, falling back to default profiles: default
+2018-12-28 16:57:30.719 DEBUG 1498 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@1f760b47
+2018-12-28 16:57:36.123 DEBUG 1498 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/**/favicon.ico] in 'faviconHandlerMapping'
+2018-12-28 16:57:36.576 DEBUG 1498 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2018-12-28 16:57:36.752 DEBUG 1498 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 36 mappings in 'requestMappingHandlerMapping'
+2018-12-28 16:57:36.830 DEBUG 1498 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2018-12-28 16:57:36.868 DEBUG 1498 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2018-12-28 16:57:37.928  INFO 1498 --- [main] c.s.c.m.ContractManageApplicationTests   : Started ContractManageApplicationTests in 8.097 seconds (JVM running for 9.75)
+2018-12-28 16:57:38.543 DEBUG 1498 --- [Thread-2] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@1f760b47, started on Fri Dec 28 16:57:30 CST 2018
+2018-12-28 17:00:35.389  INFO 1521 --- [main] c.s.c.m.ContractManageApplicationTests   : Starting ContractManageApplicationTests on devil-MBP.lan with PID 1521 (started by apple in /Users/apple/Workspaces/ContractManageSite)
+2018-12-28 17:00:35.392 DEBUG 1521 --- [main] c.s.c.m.ContractManageApplicationTests   : Running with Spring Boot v2.1.1.RELEASE, Spring v5.1.3.RELEASE
+2018-12-28 17:00:35.395  INFO 1521 --- [main] c.s.c.m.ContractManageApplicationTests   : No active profile set, falling back to default profiles: default
+2018-12-28 17:00:35.500 DEBUG 1521 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@1f760b47
+2018-12-28 17:00:42.131 DEBUG 1521 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/**/favicon.ico] in 'faviconHandlerMapping'
+2018-12-28 17:00:42.628 DEBUG 1521 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2018-12-28 17:00:42.799 DEBUG 1521 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 36 mappings in 'requestMappingHandlerMapping'
+2018-12-28 17:00:42.834 DEBUG 1521 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2018-12-28 17:00:42.878 DEBUG 1521 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2018-12-28 17:00:43.461  INFO 1521 --- [main] c.s.c.m.ContractManageApplicationTests   : Started ContractManageApplicationTests in 8.792 seconds (JVM running for 10.563)
+2018-12-28 17:00:43.850 DEBUG 1521 --- [Thread-2] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@1f760b47, started on Fri Dec 28 17:00:35 CST 2018
+2018-12-28 17:04:43.132  INFO 1542 --- [main] c.s.c.m.ContractManageApplicationTests   : Starting ContractManageApplicationTests on devil-MBP.lan with PID 1542 (started by apple in /Users/apple/Workspaces/ContractManageSite)
+2018-12-28 17:04:43.136 DEBUG 1542 --- [main] c.s.c.m.ContractManageApplicationTests   : Running with Spring Boot v2.1.1.RELEASE, Spring v5.1.3.RELEASE
+2018-12-28 17:04:43.145  INFO 1542 --- [main] c.s.c.m.ContractManageApplicationTests   : No active profile set, falling back to default profiles: default
+2018-12-28 17:04:43.352 DEBUG 1542 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@1f760b47
+2018-12-28 17:04:48.230 DEBUG 1542 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/**/favicon.ico] in 'faviconHandlerMapping'
+2018-12-28 17:04:48.564 DEBUG 1542 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2018-12-28 17:04:48.703 DEBUG 1542 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 36 mappings in 'requestMappingHandlerMapping'
+2018-12-28 17:04:48.737 DEBUG 1542 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2018-12-28 17:04:48.755 DEBUG 1542 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2018-12-28 17:04:49.367  INFO 1542 --- [main] c.s.c.m.ContractManageApplicationTests   : Started ContractManageApplicationTests in 7.614 seconds (JVM running for 9.05)
+2018-12-28 17:04:49.975 DEBUG 1542 --- [Thread-2] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@1f760b47, started on Fri Dec 28 17:04:43 CST 2018
+2018-12-28 17:08:18.836  INFO 1567 --- [main] c.s.c.m.ContractManageApplicationTests   : Starting ContractManageApplicationTests on devil-MBP.lan with PID 1567 (started by apple in /Users/apple/Workspaces/ContractManageSite)
+2018-12-28 17:08:18.838 DEBUG 1567 --- [main] c.s.c.m.ContractManageApplicationTests   : Running with Spring Boot v2.1.1.RELEASE, Spring v5.1.3.RELEASE
+2018-12-28 17:08:18.842  INFO 1567 --- [main] c.s.c.m.ContractManageApplicationTests   : No active profile set, falling back to default profiles: default
+2018-12-28 17:08:19.020 DEBUG 1567 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@18ece7f4
+2018-12-28 17:08:24.276 DEBUG 1567 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/**/favicon.ico] in 'faviconHandlerMapping'
+2018-12-28 17:08:24.623 DEBUG 1567 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2018-12-28 17:08:24.863 DEBUG 1567 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 36 mappings in 'requestMappingHandlerMapping'
+2018-12-28 17:08:24.904 DEBUG 1567 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2018-12-28 17:08:24.927 DEBUG 1567 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2018-12-28 17:08:25.554  INFO 1567 --- [main] c.s.c.m.ContractManageApplicationTests   : Started ContractManageApplicationTests in 7.507 seconds (JVM running for 9.264)
+2018-12-28 17:08:25.931 DEBUG 1567 --- [Thread-2] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@18ece7f4, started on Fri Dec 28 17:08:19 CST 2018
+2018-12-28 17:12:36.255  INFO 1582 --- [main] c.s.c.m.ContractManageApplicationTests   : Starting ContractManageApplicationTests on devil-MBP.lan with PID 1582 (started by apple in /Users/apple/Workspaces/ContractManageSite)
+2018-12-28 17:12:36.257 DEBUG 1582 --- [main] c.s.c.m.ContractManageApplicationTests   : Running with Spring Boot v2.1.1.RELEASE, Spring v5.1.3.RELEASE
+2018-12-28 17:12:36.305  INFO 1582 --- [main] c.s.c.m.ContractManageApplicationTests   : No active profile set, falling back to default profiles: default
+2018-12-28 17:12:36.453 DEBUG 1582 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@1f760b47
+2018-12-28 17:12:40.906 DEBUG 1582 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/**/favicon.ico] in 'faviconHandlerMapping'
+2018-12-28 17:12:41.256 DEBUG 1582 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2018-12-28 17:12:41.383 DEBUG 1582 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 36 mappings in 'requestMappingHandlerMapping'
+2018-12-28 17:12:41.417 DEBUG 1582 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2018-12-28 17:12:41.438 DEBUG 1582 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2018-12-28 17:12:42.269  INFO 1582 --- [main] c.s.c.m.ContractManageApplicationTests   : Started ContractManageApplicationTests in 6.578 seconds (JVM running for 7.742)
+2018-12-28 17:12:42.691 DEBUG 1582 --- [Thread-2] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@1f760b47, started on Fri Dec 28 17:12:36 CST 2018
+2018-12-28 23:16:39.041  INFO 1809 --- [main] c.s.c.m.ContractManageApplicationTests   : Starting ContractManageApplicationTests on devil-MBP.lan with PID 1809 (started by apple in /Users/apple/Workspaces/ContractManageSite)
+2018-12-28 23:16:39.043 DEBUG 1809 --- [main] c.s.c.m.ContractManageApplicationTests   : Running with Spring Boot v2.1.1.RELEASE, Spring v5.1.3.RELEASE
+2018-12-28 23:16:39.047  INFO 1809 --- [main] c.s.c.m.ContractManageApplicationTests   : No active profile set, falling back to default profiles: default
+2018-12-28 23:16:39.259 DEBUG 1809 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@1cf56a1c
+2018-12-28 23:16:44.321 DEBUG 1809 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/**/favicon.ico] in 'faviconHandlerMapping'
+2018-12-28 23:16:44.698 DEBUG 1809 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2018-12-28 23:16:44.840 DEBUG 1809 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 36 mappings in 'requestMappingHandlerMapping'
+2018-12-28 23:16:44.879 DEBUG 1809 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2018-12-28 23:16:44.922 DEBUG 1809 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2018-12-28 23:16:45.718  INFO 1809 --- [main] c.s.c.m.ContractManageApplicationTests   : Started ContractManageApplicationTests in 7.461 seconds (JVM running for 8.963)
+2018-12-28 23:16:46.307 DEBUG 1809 --- [Thread-2] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@1cf56a1c, started on Fri Dec 28 23:16:39 CST 2018
+2018-12-28 23:25:15.155  INFO 1847 --- [main] c.s.c.m.ContractManageApplicationTests   : Starting ContractManageApplicationTests on devil-MBP.lan with PID 1847 (started by apple in /Users/apple/Workspaces/ContractManageSite)
+2018-12-28 23:25:15.158 DEBUG 1847 --- [main] c.s.c.m.ContractManageApplicationTests   : Running with Spring Boot v2.1.1.RELEASE, Spring v5.1.3.RELEASE
+2018-12-28 23:25:15.162  INFO 1847 --- [main] c.s.c.m.ContractManageApplicationTests   : No active profile set, falling back to default profiles: default
+2018-12-28 23:25:15.277 DEBUG 1847 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@33f676f6
+2018-12-28 23:25:26.279 DEBUG 1847 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/**/favicon.ico] in 'faviconHandlerMapping'
+2018-12-28 23:25:26.907 DEBUG 1847 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2018-12-28 23:25:27.109 DEBUG 1847 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 36 mappings in 'requestMappingHandlerMapping'
+2018-12-28 23:25:27.200 DEBUG 1847 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2018-12-28 23:25:27.242 DEBUG 1847 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2018-12-28 23:25:28.370  INFO 1847 --- [main] c.s.c.m.ContractManageApplicationTests   : Started ContractManageApplicationTests in 14.309 seconds (JVM running for 16.33)
+2018-12-28 23:25:28.906 DEBUG 1847 --- [Thread-2] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@33f676f6, started on Fri Dec 28 23:25:15 CST 2018
+2018-12-28 23:30:45.031  INFO 1888 --- [main] c.s.c.m.ContractManageApplicationTests   : Starting ContractManageApplicationTests on devil-MBP.lan with PID 1888 (started by apple in /Users/apple/Workspaces/ContractManageSite)
+2018-12-28 23:30:45.033 DEBUG 1888 --- [main] c.s.c.m.ContractManageApplicationTests   : Running with Spring Boot v2.1.1.RELEASE, Spring v5.1.3.RELEASE
+2018-12-28 23:30:45.037  INFO 1888 --- [main] c.s.c.m.ContractManageApplicationTests   : No active profile set, falling back to default profiles: default
+2018-12-28 23:30:45.130 DEBUG 1888 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@cd1e646
+2018-12-28 23:30:49.648 DEBUG 1888 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/**/favicon.ico] in 'faviconHandlerMapping'
+2018-12-28 23:30:49.997 DEBUG 1888 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2018-12-28 23:30:50.145 DEBUG 1888 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 36 mappings in 'requestMappingHandlerMapping'
+2018-12-28 23:30:50.180 DEBUG 1888 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2018-12-28 23:30:50.203 DEBUG 1888 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2018-12-28 23:30:51.136  INFO 1888 --- [main] c.s.c.m.ContractManageApplicationTests   : Started ContractManageApplicationTests in 7.003 seconds (JVM running for 8.591)
+2018-12-28 23:30:51.646 DEBUG 1888 --- [Thread-2] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@cd1e646, started on Fri Dec 28 23:30:45 CST 2018
+2018-12-28 23:34:31.359  INFO 1916 --- [main] c.s.c.m.ContractManageApplicationTests   : Starting ContractManageApplicationTests on devil-MBP.lan with PID 1916 (started by apple in /Users/apple/Workspaces/ContractManageSite)
+2018-12-28 23:34:31.361 DEBUG 1916 --- [main] c.s.c.m.ContractManageApplicationTests   : Running with Spring Boot v2.1.1.RELEASE, Spring v5.1.3.RELEASE
+2018-12-28 23:34:31.363  INFO 1916 --- [main] c.s.c.m.ContractManageApplicationTests   : No active profile set, falling back to default profiles: default
+2018-12-28 23:34:31.414 DEBUG 1916 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@1f760b47
+2018-12-28 23:34:36.114 DEBUG 1916 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/**/favicon.ico] in 'faviconHandlerMapping'
+2018-12-28 23:34:36.552 DEBUG 1916 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2018-12-28 23:34:36.693 DEBUG 1916 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 36 mappings in 'requestMappingHandlerMapping'
+2018-12-28 23:34:36.740 DEBUG 1916 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2018-12-28 23:34:36.772 DEBUG 1916 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2018-12-28 23:34:37.370  INFO 1916 --- [main] c.s.c.m.ContractManageApplicationTests   : Started ContractManageApplicationTests in 6.801 seconds (JVM running for 8.07)
+2018-12-28 23:34:37.753 DEBUG 1916 --- [Thread-2] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@1f760b47, started on Fri Dec 28 23:34:31 CST 2018
+2018-12-28 23:38:16.260  INFO 1933 --- [main] c.s.c.m.ContractManageApplicationTests   : Starting ContractManageApplicationTests on devil-MBP.lan with PID 1933 (started by apple in /Users/apple/Workspaces/ContractManageSite)
+2018-12-28 23:38:16.262 DEBUG 1933 --- [main] c.s.c.m.ContractManageApplicationTests   : Running with Spring Boot v2.1.1.RELEASE, Spring v5.1.3.RELEASE
+2018-12-28 23:38:16.268  INFO 1933 --- [main] c.s.c.m.ContractManageApplicationTests   : No active profile set, falling back to default profiles: default
+2018-12-28 23:38:16.380 DEBUG 1933 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@1f760b47
+2018-12-28 23:38:21.020 DEBUG 1933 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/**/favicon.ico] in 'faviconHandlerMapping'
+2018-12-28 23:38:21.369 DEBUG 1933 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2018-12-28 23:38:21.522 DEBUG 1933 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 36 mappings in 'requestMappingHandlerMapping'
+2018-12-28 23:38:21.562 DEBUG 1933 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2018-12-28 23:38:21.580 DEBUG 1933 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2018-12-28 23:38:22.548  INFO 1933 --- [main] c.s.c.m.ContractManageApplicationTests   : Started ContractManageApplicationTests in 6.971 seconds (JVM running for 8.575)
+2018-12-28 23:38:23.200 DEBUG 1933 --- [Thread-2] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@1f760b47, started on Fri Dec 28 23:38:16 CST 2018
+2018-12-28 23:39:13.035  INFO 1945 --- [main] c.s.c.m.ContractManageApplicationTests   : Starting ContractManageApplicationTests on devil-MBP.lan with PID 1945 (started by apple in /Users/apple/Workspaces/ContractManageSite)
+2018-12-28 23:39:13.036 DEBUG 1945 --- [main] c.s.c.m.ContractManageApplicationTests   : Running with Spring Boot v2.1.1.RELEASE, Spring v5.1.3.RELEASE
+2018-12-28 23:39:13.039  INFO 1945 --- [main] c.s.c.m.ContractManageApplicationTests   : No active profile set, falling back to default profiles: default
+2018-12-28 23:39:13.092 DEBUG 1945 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@1f760b47
+2018-12-28 23:39:17.473 DEBUG 1945 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/**/favicon.ico] in 'faviconHandlerMapping'
+2018-12-28 23:39:17.817 DEBUG 1945 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2018-12-28 23:39:17.951 DEBUG 1945 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 36 mappings in 'requestMappingHandlerMapping'
+2018-12-28 23:39:17.985 DEBUG 1945 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2018-12-28 23:39:18.007 DEBUG 1945 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2018-12-28 23:39:19.097  INFO 1945 --- [main] c.s.c.m.ContractManageApplicationTests   : Started ContractManageApplicationTests in 6.621 seconds (JVM running for 7.71)
+2018-12-28 23:39:19.481 DEBUG 1945 --- [Thread-2] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@1f760b47, started on Fri Dec 28 23:39:13 CST 2018

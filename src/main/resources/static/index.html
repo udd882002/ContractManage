@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/upload/3" method="post" enctype="multipart/form-data">
+    <input multiple name="file" type="file">
+    <input multiple name="file" type="file">
+    <button type="submit">上传</button>
+</form>
+<script>
+    var a = {
+        status: "success", //状态："success" 或 "failure"
+        reason: null, //出错原因
+        urls: [ //上传成功图片url
+            "/2018/11/9/22/4145b5fb-869b-4be1-95d8-de3635ec1529.jpg",
+            "/2018/11/9/22/23d5538c-6edc-400f-95cc-c3d9c5fae99b.jpg",
+            "/2018/11/9/22/b22cafa7-9d87-458f-93dd-c86069858489.jpg"
+        ]
+    };
+</script>
+</body>
+</html>

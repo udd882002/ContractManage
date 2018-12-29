@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seven.contract.manage.dao.SignatureDao">
+	<insert id="insert" parameterType="com.seven.contract.manage.model.Signature" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO `signature`(
+			`mid`,
+			`url`,
+			`remark`,
+			`add_time`
+)
+		VALUES (
+			#{mid},
+			#{url},
+			#{remark},
+			#{addTime}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.seven.contract.manage.model.Signature">
+		UPDATE `signature`
+		<set>
+			<if test="mid != null">
+				`mid`	= #{mid},
+			</if>
+			<if test="url != null">
+				`url`	= #{url},
+			</if>
+			<if test="remark != null">
+				`remark`	= #{remark},
+			</if>
+			<if test="addTime != null">
+				`add_time`	= #{addTime}
+			</if>
+		</set>
+		WHERE id = #{id}
+	</update>
+
+	<select id="selectOne" parameterType="long" resultType="com.seven.contract.manage.model.Signature">
+		<include refid="sql_select"/>
+		WHERE `id` = #{id}
+	</select>
+
+
+	<delete id="deleteById" parameterType="long">
+		DELETE FROM signature WHERE `id` = #{id}
+	</delete>
+
+
+	<select id="selectList" parameterType="map" resultType="com.seven.contract.manage.model.Signature">
+		<include refid="sql_select"/>
+		<include refid="sql_where"/>
+	</select>
+
+
+	<select id="totalRows" parameterType="map" resultType="long" >
+		select count(1) from signature
+		<include refid="sql_where"/>
+	</select>
+
+
+	<sql id="sql_limit">
+		<if test="startRow != null and pageSize != null">
+			Limit #{startRow},#{pageSize}
+		</if>
+	</sql>
+
+
+	<sql id="sql_select">
+		select
+			`id`	AS id,
+			`mid`	AS mid,
+			`url`	AS url,
+			`remark`	AS remark,
+			`add_time`	AS addTime
+		FROM signature
+	</sql>
+
+
+	<sql id="sql_where">
+		<where>
+			<if test="id != null and id != 0">
+				AND id = #{id}
+			</if>
+			<if test="mid != null and mid != 0">
+				AND mid = #{mid}
+			</if>
+			<if test="url != null and url != ''">
+				AND url = #{url}
+			</if>
+			<if test="remark != null and remark != ''">
+				AND remark = #{remark}
+			</if>
+		</where>
+	</sql>
+
+</mapper>

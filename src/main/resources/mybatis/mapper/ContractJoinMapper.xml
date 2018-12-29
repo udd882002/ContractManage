@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seven.contract.manage.dao.ContractJoinDao">
+	<insert id="insert" parameterType="com.seven.contract.manage.model.ContractJoin" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO `contract_join`(
+			`contract_id`,
+			`mid`,
+			`name`,
+			`phone`,
+			`sign_time`,
+			`file_hash`,
+			`private_keys`,
+			`status`,
+			`remark`,
+			`role`,
+			`sort`
+		)
+		VALUES (
+			#{contractId},
+			#{mid},
+			#{name},
+			#{phone},
+			#{signTime},
+			#{fileHash},
+			#{privateKeys},
+			#{status},
+			#{remark},
+			#{role},
+			#{sort}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.seven.contract.manage.model.ContractJoin">
+		UPDATE `contract_join`
+		<set>
+			<if test="contractId != null">
+				`contract_id`	= #{contractId},
+			</if>
+			<if test="mid != null">
+				`mid`	= #{mid},
+			</if>
+			<if test="name != null">
+				`name`	= #{name},
+			</if>
+			<if test="phone != null">
+				`phone`	= #{phone},
+			</if>
+			<if test="signTime != null">
+				`sign_time`	= #{signTime},
+			</if>
+			<if test="fileHash != null">
+				`file_hash`	= #{fileHash},
+			</if>
+			<if test="privateKeys != null">
+				`private_keys`	= #{privateKeys},
+			</if>
+			<if test="status != null">
+				`status`	= #{status},
+			</if>
+			<if test="remark != null">
+				`remark`	= #{remark},
+			</if>
+			<if test="role != null">
+				`role`	= #{role},
+			</if>
+			<if test="sort != null and sort != 0">
+				`sort` = #{sort}
+			</if>
+		</set>
+		WHERE id = #{id}
+	</update>
+
+	<select id="selectOne" parameterType="long" resultType="com.seven.contract.manage.model.ContractJoin">
+		<include refid="sql_select"/>
+		WHERE `id` = #{id}
+	</select>
+
+
+	<delete id="deleteById" parameterType="long">
+		DELETE FROM contract_join WHERE `id` = #{id}
+	</delete>
+
+
+	<select id="selectList" parameterType="map" resultType="com.seven.contract.manage.model.ContractJoin">
+		<include refid="sql_select"/>
+		<include refid="sql_where"/>
+	</select>
+
+
+	<select id="totalRows" parameterType="map" resultType="long" >
+		select count(1) from contract_join
+		<include refid="sql_where"/>
+	</select>
+
+
+	<sql id="sql_limit">
+		Limit #{startRow},#{pageSize}
+	</sql>
+
+
+	<sql id="sql_select">
+		select
+			`id`	AS id,
+			`contract_id`	AS contractId,
+			`mid`	AS mid,
+			`name`	AS name,
+			`phone`	AS phone,
+			`sign_time`	AS signTime,
+			`file_hash`	AS fileHash,
+			`private_keys`	AS privateKeys,
+			`status`	AS status,
+			`remark`	AS remark,
+			`role`  AS role,
+			`sort` AS sort
+		FROM contract_join
+	</sql>
+
+
+	<sql id="sql_where">
+		<where>
+			<if test="id != null and id != 0">
+				AND id = #{id}
+			</if>
+			<if test="contractId != null and contractId != 0">
+				AND contract_id = #{contractId}
+			</if>
+			<if test="mid != null and mid != 0">
+				AND mid = #{mid}
+			</if>
+			<if test="name != null and name != ''">
+				AND name = #{name}
+			</if>
+			<if test="phone != null and phone != ''">
+				AND phone = #{phone}
+			</if>
+			<if test="fileHash != null and fileHash != ''">
+				AND file_hash = #{fileHash}
+			</if>
+			<if test="privateKeys != null and privateKeys != ''">
+				AND private_keys = #{privateKeys}
+			</if>
+			<if test="status != null and status != ''">
+				AND status = #{status}
+			</if>
+			<if test="remark != null and remark != ''">
+				AND remark = #{remark}
+			</if>
+			<if test="role != null and role != ''">
+				AND role = #{role}
+			</if>
+			<if test="sort != null and sort != 0">
+				AND sort = #{sort}
+			</if>
+		</where>
+	</sql>
+
+
+</mapper>
