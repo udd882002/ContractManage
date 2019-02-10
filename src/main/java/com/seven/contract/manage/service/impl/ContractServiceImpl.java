@@ -22,6 +22,7 @@ import com.seven.contract.manage.uploader.path.FileSavePath;
 import com.seven.contract.manage.utils.BytomUtil;
 import com.seven.contract.manage.utils.Hash;
 import com.seven.contract.manage.utils.SerialNumber;
+import com.seven.contract.manage.utils.ca.CaUtil;
 import com.seven.contract.manage.vo.ContractVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,25 +56,50 @@ public class ContractServiceImpl implements ContractService {
 	private MessageService messageService;
 
 	@Override
-	public int addContract(int mid, String contractName, Date endTime, String remark, String secretContract, String contractUrl, ContractStatusEnum status, List<Integer> contactMids) throws Exception {
+	public int addContract(int mid, String contractName, Date endTime, Date validTime, int labelId, String remark, String secretContract, String contractUrl, ContractStatusEnum status, String contractSourceUrl, String privateKeyPwd, List<Integer> contactMids) throws Exception {
 
 		Contract contract = new Contract();
 		contract.setContractName(contractName);
 		contract.setContractNo(SerialNumber.createSerial("CON", 6));
 		contract.setStartTime(new Date());
 		contract.setEndTime(endTime);
+		if (!StringUtils.isEmpty(validTime)) {
+			contract.setValidTime(validTime);
+		}
 		contract.setStatus(status.toString());
 		contract.setSecretContract(secretContract);
 		contract.setContractUrl(contractUrl);
+		contract.setContractSourceUrl(contractSourceUrl);
 		contract.setAddTime(new Date());
 
 		contractDao.insert(contract);
 
 		logger.debug("add contract = {}", JSON.toJSONString(contract));
 
-		int sort = 1;
+		//计算文件hash值
+		//拿到的地址是带http的访问地址,必须转化成本地地址
+		String fullPath = fileSavePath.relativePath2fullPath(contractSourceUrl);
+		File file = new File(fullPath);
+		if (!file.exists()) {
+			logger.debug(fullPath);
+			throw new AppRuntimeException("合同文件不存在");
+		}
+		byte[] hashByte = Hash.sha256(file);
+		// 将 byte 转化为 string
+		String fileHash = Hash.toString(hashByte);
+		logger.debug("fileHash = {}", fileHash);
 
 		Member member = memberService.selectOneById(mid);
+		String sign = "";
+		if (!StringUtils.isEmpty(privateKeyPwd)) {
+			//计算上链签名sign
+			sign = CaUtil.sign(member.getPrivateKeysFileUrl(), privateKeyPwd, fileHash);
+		}
+
+		logger.debug("sign = {}", sign);
+
+		int sort = 1;
+
 		ContractJoin contractJoin = new ContractJoin();
 		contractJoin.setContractId(contract.getId());
 		contractJoin.setMid(mid);
@@ -88,8 +114,17 @@ public class ContractServiceImpl implements ContractService {
 			logger.error("添加合同信息状态不正确, status = {}", status.toString());
 			throw new AppRuntimeException("9999", "合同状态不正确");
 		}
+		contractJoin.setFileHash(fileHash);
+		if (!StringUtils.isEmpty(sign)) {
+			contractJoin.setPrivateKeys(sign);
+		}
 		contractJoin.setRole(ContractJoinRoleEnum.initiator.toString());
 		contractJoin.setSort(sort);
+		if (labelId > 0) {
+			contractJoin.setLabelId(labelId);
+		}
+
+		contractJoin.setIsArchive("N");
 		contractJoinDao.insert(contractJoin);
 
 		sort++;
@@ -115,8 +150,10 @@ public class ContractServiceImpl implements ContractService {
 				} else if (status == ContractStatusEnum.draft) {
 					contractJoin.setStatus(ContractJoinStatusEnum.draft.toString());
 				}
+				contractJoin.setFileHash(fileHash);
 				contractJoin.setRole(ContractJoinRoleEnum.join.toString());
 				contractJoin.setSort(sort);
+				contractJoin.setIsArchive("N");
 				contractJoinDao.insert(contractJoin);
 
 				sort++;
@@ -127,7 +164,7 @@ public class ContractServiceImpl implements ContractService {
 	}
 
 	@Override
-	public long updateContract(long id, int mid, String contractUrl) throws AppRuntimeException {
+	public long updateContract(long id, int mid, String contractUrl, String contractSourceUrl) throws Exception {
 
 		Contract contract = contractDao.selectOne(id);
 
@@ -152,7 +189,22 @@ public class ContractServiceImpl implements ContractService {
 			throw new AppRuntimeException("9999", "非法操作");
 		}
 
+		//计算文件hash值
+		//拿到的地址是带http的访问地址,必须转化成本地地址
+		String fullPath = fileSavePath.relativePath2fullPath(contractSourceUrl);
+		File file = new File(fullPath);
+		byte[] hashByte = Hash.sha256(file);
+		// 将 byte 转化为 string
+		String fileHash = Hash.toString(hashByte);
+		logger.debug("fileHash = {}", fileHash);
+
+		for (ContractJoin contractJoin : contractJoins) {
+			contractJoin.setFileHash(fileHash);
+			contractJoinDao.update(contractJoin);
+		}
+
 		contract.setContractUrl(contractUrl);
+		contract.setContractSourceUrl(contractSourceUrl);
 		contract.setStartTime(new Date());
 		contractDao.update(contract);
 
@@ -210,7 +262,7 @@ public class ContractServiceImpl implements ContractService {
 	}
 
 	@Override
-	public void draftToSigning(long id, int mid, String contractUrl) throws AppRuntimeException {
+	public void draftToSigning(long id, int mid, String contractUrl, String contractSourceUrl, String privateKeyPwd) throws Exception {
 
 		Contract contract = contractDao.selectOne(id);
 
@@ -224,6 +276,20 @@ public class ContractServiceImpl implements ContractService {
 			throw new AppRuntimeException("9999", "合同状态不正确");
 		}
 
+		//计算文件hash值
+		//拿到的地址是带http的访问地址,必须转化成本地地址
+		String fullPath = fileSavePath.relativePath2fullPath(contractSourceUrl);
+		File file = new File(fullPath);
+		byte[] hashByte = Hash.sha256(file);
+		// 将 byte 转化为 string
+		String fileHash = Hash.toString(hashByte);
+		logger.debug("fileHash = {}", fileHash);
+
+		Member member = memberService.selectOneById(mid);
+		//计算上链签名sign
+		String sign = CaUtil.sign(member.getPrivateKeysFileUrl(), privateKeyPwd, fileHash);
+		logger.debug("sing = {}", sign);
+
 		Map<String, Object> params = new HashMap<>();
 		params.put("contractId", contract.getId());
 		params.put("mid", mid);
@@ -236,6 +302,7 @@ public class ContractServiceImpl implements ContractService {
 		}
 
 		contract.setContractUrl(contractUrl);
+		contract.setContractSourceUrl(contractSourceUrl);
 		contract.setStatus(ContractStatusEnum.signing.toString());
 		contract.setStartTime(new Date());
 		contractDao.update(contract);
@@ -244,6 +311,11 @@ public class ContractServiceImpl implements ContractService {
 		params.put("contractId", contract.getId());
 		contractJoins = contractJoinDao.selectList(params);
 		for (ContractJoin contractJoin : contractJoins) {
+
+			if (contractJoin.getMid() == mid) {
+				contractJoin.setPrivateKeys(sign);
+			}
+
 			if (contractJoin.getRole().equals(ContractJoinRoleEnum.initiator.toString())) {
 				contractJoin.setSignTime(new Date());
 			}
@@ -252,12 +324,13 @@ public class ContractServiceImpl implements ContractService {
 			} else {
 				contractJoin.setStatus(ContractJoinStatusEnum.waitother.toString());
 			}
+			contractJoin.setFileHash(fileHash);
 			contractJoinDao.update(contractJoin);
 		}
 	}
 
 	@Override
-	public Map<String, Object> signing(long id, int mid, String signFlag, String contractUrl) throws Exception {
+	public Map<String, Object> signing(long id, int mid, String signFlag, String contractUrl, String privateKeyPwd) throws Exception {
 
 		logger.debug("id = {}, mid = {}, signFlag = {}, contractUrl = {}", id, mid, signFlag, contractUrl);
 
@@ -295,6 +368,14 @@ public class ContractServiceImpl implements ContractService {
 
 					isFlag = true;
 
+					Member member = memberService.selectOneById(contractJoin.getMid());
+
+					//计算上链签名sign
+					String sign = CaUtil.sign(member.getPrivateKeysFileUrl(), privateKeyPwd, contractJoin.getFileHash());
+					logger.debug("sing = {}", sign);
+
+					contractJoin.setPrivateKeys(sign);
+
 					logger.debug("contractJoin.getSort() = {}, contractJoins.size() = {}", contractJoin.getSort(), contractJoins.size());
 					if (contractJoin.getSort() == contractJoins.size()) {
 						//最后一个签约,修改成完成
@@ -321,25 +402,10 @@ public class ContractServiceImpl implements ContractService {
 
 			if (isFlag) {
 				logger.debug("isComplete = {}", isComplete);
-				if (isComplete) {  //合同完成,将所有参于者状态都改成完成,并计算文件Hash
-
-					//计算文件hash值
-					String hase;
-
-					//拿到的地址是带http的访问地址,必须转化成本地地址
-					String fullPath = fileSavePath.relativePath2fullPath(contractUrl);
-
-					File file = new File(fullPath);
-					byte[] hashByte = Hash.sha256(file);
-
-					// 将 byte 转化为 string
-					String fileHash = Hash.toString(hashByte);
-
-					logger.debug("fileHash = {}", fileHash);
+				if (isComplete) {  //合同完成,将所有参于者状态都改成完成
 
 					for (ContractJoin contractJoin : contractJoins) {
 						contractJoin.setStatus(ContractJoinStatusEnum.complete.toString());
-						contractJoin.setFileHash(fileHash);
 						contractJoinDao.update(contractJoin);
 					}
 
@@ -350,7 +416,6 @@ public class ContractServiceImpl implements ContractService {
 					contractDao.update(contract);
 
 					result.put("status", ContractStatusEnum.registered.toString());
-					result.put("hash", fileHash);
 
 					logger.debug("signing result = {}", JSON.toJSONString(result));
 					return result;
@@ -369,7 +434,6 @@ public class ContractServiceImpl implements ContractService {
 					}
 
 					result.put("status", ContractStatusEnum.signing.toString());
-					result.put("hash", "");
 
 					logger.debug("signing result = {}", JSON.toJSONString(result));
 					return result;
@@ -428,7 +492,6 @@ public class ContractServiceImpl implements ContractService {
 				contractDao.update(contract);
 
 				result.put("status", ContractStatusEnum.fail.toString());
-				result.put("hash", "");
 
 				logger.debug("signing result = {}", JSON.toJSONString(result));
 				return result;
@@ -439,6 +502,45 @@ public class ContractServiceImpl implements ContractService {
 
 	}
 
+	@Override
+	public void transaction(long id) throws Exception {
+		logger.debug("transaction id = {}", id);
+
+		Contract contract = contractDao.selectOne(id);
+		if (contract == null) {
+			throw new AppRuntimeException("9999", "合同信息不存在");
+		}
+
+		StringBuffer data = new StringBuffer();
+
+		Map<String, Object> params = new HashMap<>();
+		params.put("contractId", contract.getId());
+		List<ContractJoin> contractJoins = contractJoinDao.selectList(params);
+		for (ContractJoin contractJoin : contractJoins) {
+
+			logger.debug("contractJoin = {}", JSON.toJSONString(contractJoin));
+
+			if (data.length() == 0) {
+				data.append(contractJoin.getFileHash());
+			}
+
+			data.append(",");
+			data.append(contractJoin.getPrivateKeys());
+		}
+
+		logger.debug("data = {}", data);
+		String txs = BytomUtil.transaction(data.toString());
+		logger.debug("txs = {}", txs);
+
+		contract.setStatus(ContractStatusEnum.complete.toString());
+		contract.setCompleteTime(new Date());
+		contract.setContractEndBlockUrl(txs);
+		contractDao.update(contract);
+
+		logger.debug("contract = {}", JSON.toJSONString(contract));
+	}
+
+	/*
 	@Override
 	public boolean saveSignature(int mid, long id, String signature) throws Exception {
 
@@ -493,6 +595,7 @@ public class ContractServiceImpl implements ContractService {
 				//记录program和txId
 				contract.setProgram(program);
 				contract.setTxId(txId);
+				contract.setContractStartBlockUrl(txId);  //txId1记录到start里
 				contractDao.update(contract);
 
 				logger.debug("return true contract = {}", JSON.toJSONString(contract));
@@ -505,7 +608,9 @@ public class ContractServiceImpl implements ContractService {
 
 		return false;
 	}
+	*/
 
+	/*
 	@Override
 	public void unlock(long id) throws Exception {
 		logger.debug("unlock id = {}", id);
@@ -549,4 +654,5 @@ public class ContractServiceImpl implements ContractService {
 		}
 
 	}
+	*/
 }

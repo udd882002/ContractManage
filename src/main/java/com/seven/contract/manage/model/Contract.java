@@ -74,6 +74,16 @@ public class Contract implements Serializable {
 
 	private String program;
 
+	/**
+	 *  有效期
+	 */
+	private java.util.Date validTime;
+
+	/**
+	 * 原合同地址
+	 */
+	private String contractSourceUrl;
+
 
 	public int getId() {
 		return id;
@@ -193,5 +203,21 @@ public class Contract implements Serializable {
 
 	public void setProgram(String program) {
 		this.program = program;
+	}
+
+	public Date getValidTime() {
+		return validTime;
+	}
+
+	public void setValidTime(Date validTime) {
+		this.validTime = validTime;
+	}
+
+	public String getContractSourceUrl() {
+		return contractSourceUrl;
+	}
+
+	public void setContractSourceUrl(String contractSourceUrl) {
+		this.contractSourceUrl = contractSourceUrl;
 	}
 }

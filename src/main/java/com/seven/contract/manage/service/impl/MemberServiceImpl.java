@@ -6,6 +6,7 @@ import com.seven.contract.manage.common.PageResult;
 import com.seven.contract.manage.dao.MemberDao;
 import com.seven.contract.manage.model.Member;
 import com.seven.contract.manage.service.MemberService;
+import com.seven.contract.manage.utils.ca.CaUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,18 @@ public class MemberServiceImpl implements MemberService {
 	private MemberDao memberDao;
 
 	@Override
-	public void addMember(Member member) {
+	public void addMember(Member member, String privateKeyPwd) throws Exception {
+
+		//计算公私钥和CA认证
+		Map<String, String> caMap = CaUtil.createKeys(privateKeyPwd, member);
+
+		String privateKey = caMap.get("privateKey");
+		String publicKey = caMap.get("publicKey");
+		String caCert = caMap.get("caCert");
+
+		member.setPrivateKeysFileUrl(privateKey);
+		member.setPublicKeys(publicKey);
+		member.setCaCert(caCert);
 		memberDao.insert(member);
 	}
 

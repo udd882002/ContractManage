@@ -33,27 +33,27 @@ public class FileSavePathImpl implements FileSavePath {
         switch (type) {
             case 1:
                 if (addPath == null || addPath.equals("")) {
-                    return uploaderProperties.getDomain() + "/file" + childPath();
+                    return uploaderProperties.getDomain() + "/fileupload/file" + childPath();
                 } else {
-                    return uploaderProperties.getDomain() + "/file/" + addPath + childPath();
+                    return uploaderProperties.getDomain() + "/fileupload/file/" + addPath + childPath();
                 }
             case 2:
                 if (addPath == null || addPath.equals("")) {
-                    return uploaderProperties.getDomain() + "/image" + childPath();
+                    return uploaderProperties.getDomain() + "/fileupload/image" + childPath();
                 } else {
-                    return uploaderProperties.getDomain() + "/image/" + addPath + childPath();
+                    return uploaderProperties.getDomain() + "/fileupload/image/" + addPath + childPath();
                 }
             case 3:
                 if (addPath == null || addPath.equals("")) {
-                    return uploaderProperties.getDomain() + "/attachment" + childPath();
+                    return uploaderProperties.getDomain() + "/fileupload/attachment" + childPath();
                 } else {
-                    return uploaderProperties.getDomain() + "/attachment/" + addPath + childPath();
+                    return uploaderProperties.getDomain() + "/fileupload/attachment/" + addPath + childPath();
                 }
             case 4:
                 if (addPath == null || addPath.equals("")) {
-                    return uploaderProperties.getDomain() + "/txtfile" + childPath();
+                    return uploaderProperties.getDomain() + "/fileupload/txtfile" + childPath();
                 } else {
-                    return uploaderProperties.getDomain() + "/txtfile/" + addPath + childPath();
+                    return uploaderProperties.getDomain() + "/fileupload/txtfile/" + addPath + childPath();
                 }
             default:
                 return "";
@@ -65,20 +65,7 @@ public class FileSavePathImpl implements FileSavePath {
 
         logger.debug("relativePath = {}", relativePath);
 
-        String indexStr;
-        if (relativePath.contains("/file/")) {
-            indexStr = "/file/";
-        } else if (relativePath.contains("/image/")) {
-            indexStr = "/image/";
-        } else if (relativePath.contains("/attachment/")) {
-            indexStr = "/attachment/";
-        } else if (relativePath.contains("/txtfile/")) {
-            indexStr = "/txtfile/";
-        } else {
-            return "";
-        }
-
-        String fullPath = uploaderProperties.getStaticFilePath() + relativePath.substring(relativePath.indexOf(indexStr));
+        String fullPath = uploaderProperties.getStaticFilePath() + relativePath.substring(relativePath.indexOf("/fileupload/"));
 
         logger.debug("fullPath = {}", fullPath);
 
@@ -105,19 +92,9 @@ public class FileSavePathImpl implements FileSavePath {
     }
 
     public static void main(String[] args) {
-        String url = "http://39.96.22.77:80/attachment/18888888888/2018/12/24/滴滴出行行程报销单152702_2.jpg";
+        String url = "http://39.96.22.77:80/fileupload/attachment/18888888888/2018/12/24/滴滴出行行程报销单152702_2.jpg";
 
-        String indexStr = "";
-        if (url.contains("/file/")) {
-            indexStr = "/file/";
-        } else if (url.contains("/image/")) {
-            indexStr = "/image/";
-        } else if (url.contains("/attachment/")) {
-            indexStr = "/attachment/";
-        } else {
-        }
-
-        System.out.println("/data/works/upload" + url.substring(url.indexOf(indexStr)));
+        System.out.println("/data/works" + url.substring(url.indexOf("/fileupload/")));
     }
 
 }

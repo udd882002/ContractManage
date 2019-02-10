@@ -23,6 +23,17 @@ public class AddDraftRequest implements Serializable {
     private java.util.Date endTime;
 
     /**
+     * 有效期
+     */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private java.util.Date validTime;
+
+    /**
+     * 标签id
+     */
+    private String labelId;
+
+    /**
      *	备注
      */
     private String remark;
@@ -41,6 +52,11 @@ public class AddDraftRequest implements Serializable {
      * 联系人MID,多人用逗号分割
      */
     private String contactMids;
+
+    /**
+     *  原合同地址
+     */
+    private String contractSourceUrl;
 
     public String getContractName() {
         return contractName;
@@ -92,4 +108,27 @@ public class AddDraftRequest implements Serializable {
         this.contactMids = contactMids;
     }
 
+    public Date getValidTime() {
+        return validTime;
+    }
+
+    public void setValidTime(Date validTime) {
+        this.validTime = validTime;
+    }
+
+    public String getLabelId() {
+        return labelId;
+    }
+
+    public void setLabelId(String labelId) {
+        this.labelId = labelId;
+    }
+
+    public String getContractSourceUrl() {
+        return contractSourceUrl;
+    }
+
+    public void setContractSourceUrl(String contractSourceUrl) {
+        this.contractSourceUrl = contractSourceUrl;
+    }
 }

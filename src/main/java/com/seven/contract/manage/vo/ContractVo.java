@@ -15,8 +15,12 @@ public class ContractVo implements Serializable {
     private Date signTime;
     private Date startTime;
     private Date endTime;
+    private Date completeTime;
     private String role;
     private Date addTime;
+    private Date validTime;
+    private int labelId;
+    private String contractStatus;
 
     public long getId() {
         return id;
@@ -96,5 +100,37 @@ public class ContractVo implements Serializable {
 
     public void setAddTime(Date addTime) {
         this.addTime = addTime;
+    }
+
+    public Date getValidTime() {
+        return validTime;
+    }
+
+    public void setValidTime(Date validTime) {
+        this.validTime = validTime;
+    }
+
+    public int getLabelId() {
+        return labelId;
+    }
+
+    public void setLabelId(int labelId) {
+        this.labelId = labelId;
+    }
+
+    public Date getCompleteTime() {
+        return completeTime;
+    }
+
+    public void setCompleteTime(Date completeTime) {
+        this.completeTime = completeTime;
+    }
+
+    public String getContractStatus() {
+        return contractStatus;
+    }
+
+    public void setContractStatus(String contractStatus) {
+        this.contractStatus = contractStatus;
     }
 }

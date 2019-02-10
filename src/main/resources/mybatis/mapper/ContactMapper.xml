@@ -93,7 +93,7 @@
 		</where>
 	</sql>
 
-	<select id="selectListForSearch" parameterType="map" resultType="map">
+	<select id="selectListForSearch" parameterType="map" resultType="com.seven.contract.manage.vo.ContactVo">
 		SELECT
 			A.id AS id,
 			B.name AS name,
@@ -109,7 +109,7 @@
 			AND
 				A.mid = #{mid}
 			<if test="search != null and search != ''">
-				AND (B.name = #{search} OR B.phone = #{search} OR B.public_keys = #{search})
+				AND (B.name LIKE CONCAT(CONCAT('%',#{search}),'%') OR B.phone LIKE CONCAT(CONCAT('%',#{search}),'%') OR B.public_keys LIKE CONCAT(CONCAT('%',#{search}),'%'))
 			</if>
 		</where>
 

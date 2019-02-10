@@ -1,5 +1,6 @@
 package com.seven.contract.manage.controller.member;
 
+import com.alibaba.fastjson.JSON;
 import com.seven.contract.manage.common.ApiResult;
 import com.seven.contract.manage.common.AppRuntimeException;
 import com.seven.contract.manage.common.BaseController;
@@ -8,6 +9,7 @@ import com.seven.contract.manage.model.Member;
 import com.seven.contract.manage.service.ContactService;
 import com.seven.contract.manage.service.MemberService;
 import com.seven.contract.manage.utils.NumberUtil;
+import com.seven.contract.manage.vo.ContactVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -52,7 +54,9 @@ public class ContactController extends BaseController {
 
 		long mid = member.getId();
 
-		List<Map<String, Object>> result = contactService.getListForSearch(mid, search);
+		List<ContactVo> result = contactService.getListForSearch(mid, search);
+
+		logger.debug("result = {}", JSON.toJSONString(result));
 
 		return ApiResult.success(request, result);
 	}

@@ -64,6 +64,8 @@ public class UploadController extends BaseController {
                     continue;
                 }
                 if (fileType == 3) {
+                    //第一个增加上传的pdf文件地址
+                    urls.add(relativePath + "/" + filename);
                     String imgName = filename.substring(0, filename.lastIndexOf("."));
                     List<String> addresses = Pdf2ImgUtil.pdf2Img(fullPath + "/" + filename, fullPath, imgName);
                     for (String imgadd :addresses) {

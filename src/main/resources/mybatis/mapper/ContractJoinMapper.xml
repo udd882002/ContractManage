@@ -13,7 +13,9 @@
 			`status`,
 			`remark`,
 			`role`,
-			`sort`
+			`sort`,
+			`label_id`,
+			`is_archive`
 		)
 		VALUES (
 			#{contractId},
@@ -26,7 +28,9 @@
 			#{status},
 			#{remark},
 			#{role},
-			#{sort}
+			#{sort},
+			#{labelId},
+			#{isArchive}
 		)
 	</insert>
 
@@ -64,7 +68,13 @@
 				`role`	= #{role},
 			</if>
 			<if test="sort != null and sort != 0">
-				`sort` = #{sort}
+				`sort` = #{sort},
+			</if>
+			<if test="labelId != null and labelId != 0">
+				`label_id` = #{labelId},
+			</if>
+			<if test="isArchive != null">
+				`is_archive` = #{isArchive}
 			</if>
 		</set>
 		WHERE id = #{id}
@@ -111,7 +121,9 @@
 			`status`	AS status,
 			`remark`	AS remark,
 			`role`  AS role,
-			`sort` AS sort
+			`sort` AS sort,
+			`label_id` AS labelId,
+			`is_archive` AS isArchive
 		FROM contract_join
 	</sql>
 
@@ -150,6 +162,12 @@
 			</if>
 			<if test="sort != null and sort != 0">
 				AND sort = #{sort}
+			</if>
+			<if test="labelId != null and labelId != 0">
+				AND label_id = #{labelId}
+			</if>
+			<if test="isArchive != null and isArchive != ''">
+				AND is_archive = #{isArchive}
 			</if>
 		</where>
 	</sql>

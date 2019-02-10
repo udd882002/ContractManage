@@ -13,8 +13,11 @@
 			`private_keys_file_url`,
 			`company`,
 			`position`,
-			`add_time`
-)
+			`credit_code`,
+			`add_time`,
+			`type`,
+			`ca_cert`
+		)
 		VALUES (
 			#{name},
 			#{publicKeys},
@@ -26,7 +29,10 @@
 			#{privateKeysFileUrl},
 			#{company},
 			#{position},
-			#{addTime}
+			#{creditCode},
+			#{addTime},
+			#{type},
+			#{caCert}
 		)
 	</insert>
 
@@ -63,8 +69,17 @@
 			<if test="position != null">
 				`position`	= #{position},
 			</if>
+			<if test="creditCode != null">
+				`credit_code`	= #{creditCode},
+			</if>
 			<if test="addTime != null">
-				`add_time`	= #{addTime}
+				`add_time`	= #{addTime},
+			</if>
+			<if test="type != null">
+				`type`	= #{type}
+			</if>
+			<if test="caCert != null">
+				`ca_cert`	= #{caCert}
 			</if>
 		</set>
 		WHERE id = #{id}
@@ -113,7 +128,10 @@
 			`private_keys_file_url`	AS privateKeysFileUrl,
 			`company`	AS company,
 			`position`	AS position,
-			`add_time`	AS addTime
+			`credit_code` AS creditCode,
+			`add_time`	AS addTime,
+			`type` AS type,
+			`ca_cert` AS caCert
 		FROM member
 	</sql>
 
@@ -152,6 +170,12 @@
 			</if>
 			<if test="position != null and position != ''">
 				AND position = #{position}
+			</if>
+			<if test="creditCode != null and creditCode != ''">
+				AND credit_code = #{creditCode}
+			</if>
+			<if test="type != null and type != ''">
+				AND type = #{type}
 			</if>
 		</where>
 	</sql>

@@ -28,6 +28,17 @@ public class InitiateSigningRequest implements Serializable {
     private java.util.Date endTime;
 
     /**
+     * 有效期
+     */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private java.util.Date validTime;
+
+    /**
+     * 标签id
+     */
+    private String labelId;
+
+    /**
      *	备注
      */
     private String remark;
@@ -51,6 +62,16 @@ public class InitiateSigningRequest implements Serializable {
      * 短信验证码
      */
     private String verifyCode;
+
+    /**
+     * 私钥密码
+     */
+    private String privateKeyPwd;
+
+    /**
+     * PDF合同地址
+     */
+    private String contractSourceUrl;
 
     public String getId() {
         return id;
@@ -116,5 +137,37 @@ public class InitiateSigningRequest implements Serializable {
 
     public void setVerifyCode(String verifyCode) {
         this.verifyCode = verifyCode;
+    }
+
+    public Date getValidTime() {
+        return validTime;
+    }
+
+    public void setValidTime(Date validTime) {
+        this.validTime = validTime;
+    }
+
+    public String getLabelId() {
+        return labelId;
+    }
+
+    public void setLabelId(String labelId) {
+        this.labelId = labelId;
+    }
+
+    public String getPrivateKeyPwd() {
+        return privateKeyPwd;
+    }
+
+    public void setPrivateKeyPwd(String privateKeyPwd) {
+        this.privateKeyPwd = privateKeyPwd;
+    }
+
+    public String getContractSourceUrl() {
+        return contractSourceUrl;
+    }
+
+    public void setContractSourceUrl(String contractSourceUrl) {
+        this.contractSourceUrl = contractSourceUrl;
     }
 }

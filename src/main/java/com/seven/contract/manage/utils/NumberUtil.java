@@ -13,7 +13,7 @@ public class NumberUtil {
     }
 
     public static boolean isNumeric (String str) {
-        if (str == null) {
+        if (str == null || str == "") {
             return false;
         }
         for (int i = str.length(); --i >=0;) {

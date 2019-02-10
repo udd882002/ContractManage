@@ -7,7 +7,7 @@ import java.util.Map;
 
 public interface MemberService {
 
-	public void addMember(Member member);
+	public void addMember(Member member, String privateKeyPwd) throws Exception;
 
 	public PageResult<Member> getListByPage(Map<String, Object> params, int pageNum, int pageSize);
 

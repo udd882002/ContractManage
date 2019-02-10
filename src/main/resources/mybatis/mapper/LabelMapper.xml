@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seven.contract.manage.dao.LabelDao">
+	<insert id="insert" parameterType="com.seven.contract.manage.model.Label" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO `label`(
+			`mid`,
+			`label_name`,
+			`add_time`
+		)
+		VALUES (
+			#{mid},
+			#{labelName},
+			#{addTime}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.seven.contract.manage.model.Label">
+		UPDATE `label`
+		<set>
+			<if test="mid != null">
+				`mid`	= #{mid},
+			</if>
+			<if test="labelName != null">
+				`label_name`	= #{labelName},
+			</if>
+			<if test="addTime != null">
+				`add_time`	= #{addTime}
+			</if>
+		</set>
+		WHERE id = #{id}
+	</update>
+
+	<select id="selectOne" parameterType="long" resultType="com.seven.contract.manage.model.Label">
+		<include refid="sql_select"/>
+		WHERE `id` = #{id}
+	</select>
+
+
+	<delete id="deleteById" parameterType="long">
+		DELETE FROM label WHERE `id` = #{id}
+	</delete>
+
+
+	<select id="selectList" parameterType="map" resultType="com.seven.contract.manage.model.Label">
+		<include refid="sql_select"/>
+		<include refid="sql_where"/>
+	</select>
+
+
+	<select id="totalRows" parameterType="map" resultType="long" >
+		select count(1) from label
+		<include refid="sql_where"/>
+	</select>
+
+
+	<sql id="sql_limit">
+		Limit #{startRow},#{pageSize}
+	</sql>
+
+
+	<sql id="sql_select">
+		select
+			`id`	AS id,
+			`mid`	AS mid,
+			`label_name`	AS labelName,
+			`add_time`	AS addTime
+		FROM label
+	</sql>
+
+
+	<sql id="sql_where">
+		<where>
+			<if test="id != null and id != 0">
+				AND id = #{id}
+			</if>
+			<if test="mid != null and mid != 0">
+				AND mid = #{mid}
+			</if>
+			<if test="labelName != null and labelName != ''">
+				AND label_name = #{labelName}
+			</if>
+		</where>
+	</sql>
+
+
+</mapper>

@@ -1,16 +1,11 @@
 package com.seven.contract.manage.utils;
 
-import com.alibaba.fastjson.JSON;
 import com.seven.contract.manage.conf.BytomProperties;
-import io.bytom.api.Compile;
 import io.bytom.api.Transaction;
 import io.bytom.exception.BytomException;
 import io.bytom.http.Client;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by apple on 2018/12/27.
@@ -31,11 +26,41 @@ public class BytomUtil {
         return new Client(coreURL, accessToken);
     }
 
+    public static String transaction(String data) throws BytomException {
+
+        logger.info("before transaction.");
+
+        Client client = BytomUtil.generateClient();
+
+        Transaction.Template retirement = new Transaction.Builder()
+                .addAction(new Transaction.Action.SpendFromAccount()
+                        .setAccountAlias(BytomProperties.electronicAccont)
+                        .setAssetAlias(BytomProperties.electronicContract)
+                        .setAmount(50)
+                ).addAction(new Transaction.Action.Retire()
+                        .setAssetAlias(BytomProperties.electronicContract)
+                        .setAmount(50).setArbitrary(data)
+                ).build(client);
+
+        Transaction.Template signedRetirement = new Transaction.SignerBuilder().sign(client,
+                retirement, BytomProperties.password);
+
+        Transaction.SubmitResponse txs = Transaction.submit(client, signedRetirement);
+
+        logger.info("txs:" + txs.toJson());
+
+        logger.info("after transaction.");
+
+        return txs.tx_id;
+
+    }
+
     /**
      * 合约编译
      * @param
      * @return
      */
+    /*
     public static String compile(List<String> signatures) throws BytomException {
         // http发送的json参数数据的对象
         Compile.ContractJson data = new Compile.ContractJson();
@@ -57,12 +82,14 @@ public class BytomUtil {
 
         return resp.program;
     }
+    */
 
     /**
      * 锁定电子合同币到合约，锁定交易
      * @return
      * @throws BytomException
      */
+    /*
     public static String locked(String program) throws BytomException {
         Client client = BytomUtil.generateClient();
         // setAccountAlias设置账户的名字   setAssetAlias设置资产的名字   setAmount设置发送多少数量
@@ -86,12 +113,14 @@ public class BytomUtil {
 
         return txs.tx_id;
     }
+    */
 
     /**
      * 解锁电子合同币到合约账户，解锁交易
      * @return
      * @throws BytomException
      */
+    /*
     public static String unlock(List<String> publicKeys, String outputId) throws BytomException {
         Client client = BytomUtil.generateClient();
 
@@ -134,12 +163,14 @@ public class BytomUtil {
 
         return txs.tx_id;
     }
+    */
 
     /**
      * 根据tx_id获取交易，并获取输出中的control_program与编译合约返回program相同的ID
      * @return
      * @throws BytomException
      */
+    /*
     public static String getOutputId(String txId, String program) throws BytomException {
         Client client = BytomUtil.generateClient();
 //        String txID = "9ae8172a96387d9f92c69fb504858dbcbadde75dd250946faed476c016f63b4f";
@@ -164,5 +195,6 @@ public class BytomUtil {
 
         return null;
     }
+    */
 
 }

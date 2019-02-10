@@ -6,6 +6,7 @@ import com.seven.contract.manage.common.PageResult;
 import com.seven.contract.manage.dao.ContactDao;
 import com.seven.contract.manage.model.Contact;
 import com.seven.contract.manage.service.ContactService;
+import com.seven.contract.manage.vo.ContactVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,7 +70,7 @@ public class ContactServiceImpl implements ContactService {
 	}
 
 	@Override
-	public List<Map<String, Object>> getListForSearch(long mid, String search) {
+	public List<ContactVo> getListForSearch(long mid, String search) {
 		Map<String, Object> params = new HashMap<>();
 		params.put("mid", mid);
 		if (!StringUtils.isEmpty(search)) {

@@ -16,7 +16,9 @@
 			`contract_end_block_url`,
 			`add_time`,
 			`tx_id`,
-			`program`
+			`program`,
+			`valid_time`,
+			`contract_source_url`
 		)
 		VALUES (
 			#{contractName},
@@ -32,7 +34,9 @@
 			#{contractEndBlockUrl},
 			#{addTime},
 			#{txId},
-			#{program}
+			#{program},
+			#{validTime},
+			#{contractSourceUrl}
 		)
 	</insert>
 
@@ -79,7 +83,13 @@
 				`tx_id`	= #{txId},
 			</if>
 			<if test="program != null">
-				`program` = #{program}
+				`program` = #{program},
+			</if>
+			<if test="validTime != null">
+				`valid_time` = #{validTime},
+			</if>
+			<if test="contractSourceUrl != null">
+				`contract_source_url` = #{contractSourceUrl}
 			</if>
 		</set>
 		WHERE id = #{id}
@@ -129,7 +139,9 @@
 			`contract_end_block_url`	AS contractEndBlockUrl,
 			`add_time`	AS addTime,
 			`tx_id` AS txId,
-			`program` AS program
+			`program` AS program,
+			`valid_time` AS validTime,
+			`contract_source_url` AS contractSourceUrl
 		FROM contract
 	</sql>
 
@@ -166,15 +178,15 @@
 			<if test="contractEndBlockUrl != null and contractEndBlockUrl != ''">
 				AND contract_end_block_url = #{contractEndBlockUrl}
 			</if>
-			<if test="unlock != null and unlock != ''">
-				AND tx_id IS NOT NULL AND program IS NOT NULL
+			<if test="validTime != null and validTime != ''">
+				AND valid_time = #{validTime}
 			</if>
 		</where>
 	</sql>
 
 	<select id="selectListByManage" parameterType="map" resultType="com.seven.contract.manage.vo.ContractVo">
 		select
-			c.id AS id,
+			DISTINCT c.id AS id,
 		    c.contract_name AS contractName,
 			j.mid AS mid,
 			j.name AS name,
@@ -182,12 +194,24 @@
 			j.sign_time AS signTime,
 			c.start_time AS startTime,
 			c.end_time AS endTime,
+			c.complete_time AS completeTime,
 			j.role AS role,
-			c.add_time AS addTime
+			c.add_time AS addTime,
+			c.valid_time AS validTime,
+			j.label_id AS labelId,
+			c.status AS contractStatus
 		from contract c, contract_join j
+		<if test="search != null and search != ''">
+			, contract_join cj
+		</if>
 		<where>
 			c.id = j.contract_id
+			<if test="search != null and search != ''">
+				AND c.id = cj.contract_id
+				AND (c.contract_name LIKE CONCAT(CONCAT('%',#{search}),'%') OR (cj.role = 'initiator' AND cj.name LIKE CONCAT(CONCAT('%',#{search}),'%')))
+			</if>
 			AND j.mid = #{mid}
+			AND j.is_archive = 'N'
 			<if test="type == 'ALL'">
 				AND j.status != 'draft'
 			</if>
@@ -208,6 +232,21 @@
 			</if>
 			<if test="type == 'EXPIRE'">
 				AND c.status = 'signing' AND TIMESTAMPDIFF(DAY, NOW(), c.end_time) BETWEEN 0 AND 7
+			</if>
+			<if test="startTimeBegin != null and startTimeBegin != '' and startTimeEnd != null and startTimeEnd != ''">
+				AND c.start_time <![CDATA[ >= ]]> #{startTimeBegin} AND c.start_time <![CDATA[ <= ]]> #{startTimeEnd}
+			</if>
+			<if test="endTimeBegin != null and endTimeBegin != '' and endTimeEnd != null and endTimeEnd != ''">
+				AND c.end_time <![CDATA[ >= ]]> #{endTimeBegin} AND c.end_time <![CDATA[ <= ]]> #{endTimeEnd}
+			</if>
+			<if test="validTimeBegin != null and validTimeBegin != '' and validTimeEnd != null and validTimeEnd != ''">
+				AND c.valid_time <![CDATA[ >= ]]> #{validTimeBegin} AND c.valid_time <![CDATA[ <= ]]> #{validTimeEnd}
+			</if>
+			<if test="completeTimeBegin != null and completeTimeBegin != '' and completeTimeEnd != null and completeTimeEnd != ''">
+				AND c.complete_time <![CDATA[ >= ]]> #{completeTimeBegin} AND c.complete_time <![CDATA[ <= ]]> #{completeTimeEnd}
+			</if>
+			<if test="labelId != null and labelId != 0">
+				AND j.label_id = #{labelId}
 			</if>
 		</where>
 	</select>

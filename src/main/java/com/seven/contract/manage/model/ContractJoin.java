@@ -64,6 +64,16 @@ public class ContractJoin implements Serializable {
 	 */
 	private int sort;
 
+	/**
+	 * 标签ID
+	 */
+	private int labelId;
+
+	/**
+	 * 是否已归档 N:否 Y:是
+	 */
+	private String isArchive;
+
 
 	public void setId(int id){
 		this.id = id;
@@ -159,5 +169,21 @@ public class ContractJoin implements Serializable {
 
 	public void setSort(int sort) {
 		this.sort = sort;
+	}
+
+	public int getLabelId() {
+		return labelId;
+	}
+
+	public void setLabelId(int labelId) {
+		this.labelId = labelId;
+	}
+
+	public String getIsArchive() {
+		return isArchive;
+	}
+
+	public void setIsArchive(String isArchive) {
+		this.isArchive = isArchive;
 	}
 }

@@ -1,5 +1,5 @@
 server:
-  port: 80
+  port: 8080
   servlet:
     context-path: /
 spring:
@@ -42,7 +42,7 @@ spring:
       use-global-data-source-stat: true
     ###############以上为配置druid添加的配置########################################
   resources:
-      static-locations: classpath:/static,file:/data/works/upload/
+      static-locations: classpath:/static,file:/data/works/
   servlet:
       multipart:
             max-file-size: 100MB
@@ -50,22 +50,22 @@ spring:
 
 xin:
   uploader:
-#用户\合同\附存path路径image\file\attachment\txtfile必保留,/data/works/upload/可以替换
+#/data/works/upload/可以替换
 #用户图片文件存储目录
-    image-path: /data/works/upload/image
+    image-path: /data/works/fileupload/image
 #合同文件存储目录
-    common-file-path: /data/works/upload/file
+    common-file-path: /data/works/fileupload/file
 #PDF文件存储目录
-    attachment-path: /data/works/upload/attachment
+    attachment-path: /data/works/fileupload/attachment
 #TXT文件存储目录
-    txt-file-path: /data/works/upload/txtfile
+    txt-file-path: /data/works/fileupload/txtfile
 #子目录策略，用于减少一个文件夹里的文件数：可选year;month;day;hour
-    child-path-strategy: day
+    child-path-strategy: year
 #year;month;day;hour
 #文件服务器域名
     domain: http://39.96.22.77:80
 #静态文件地址,必须与上面static-locations的配置路径相同
-    static-file-path: /data/works/upload
+    static-file-path: /data/works
 
 mybatis:
   mapper-locations: classpath:mybatis/mapper/*.xml

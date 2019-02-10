@@ -11,11 +11,15 @@ import com.seven.contract.manage.enums.ContractJoinStatusEnum;
 import com.seven.contract.manage.enums.ContractStatusEnum;
 import com.seven.contract.manage.model.Contract;
 import com.seven.contract.manage.model.ContractJoin;
+import com.seven.contract.manage.model.Label;
 import com.seven.contract.manage.model.Member;
 import com.seven.contract.manage.service.ContractJoinService;
 import com.seven.contract.manage.service.ContractService;
+import com.seven.contract.manage.service.LabelService;
 import com.seven.contract.manage.service.MemberService;
+import com.seven.contract.manage.utils.DateUtil;
 import com.seven.contract.manage.utils.NumberUtil;
+import com.seven.contract.manage.utils.SmsSendUtil;
 import com.seven.contract.manage.vo.ContractVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -44,13 +48,21 @@ public class ContractController extends BaseController {
 	@Autowired
 	private MemberService memberService;
 
+	@Autowired
+	private LabelService labelService;
+
 	/**
 	 * 全部文件
 	 * @param request
 	 * @return
      */
 	@PostMapping("/all")
-	public ApiResult getAll(HttpServletRequest request) {
+	public ApiResult getAll(HttpServletRequest request,
+							@RequestParam(value = "search", required = false) String search,
+							@RequestParam(value = "startTime", required = false) String startTime,
+							@RequestParam(value = "endTime", required = false) String endTime,
+							@RequestParam(value = "validTime", required = false) String validTime,
+							@RequestParam(value = "labelId", required = false) String labelId) {
 
 		Member member;
 		try {
@@ -64,11 +76,24 @@ public class ContractController extends BaseController {
 		Map<String, Object> params = new HashMap<>();
 		params.put("mid", mid);
 		params.put("type", "ALL");
+
+		if (!StringUtils.isEmpty(search)) {
+			params.put("search", search);
+		}
+
+		if (NumberUtil.isNumeric(labelId)) {
+			params.put("labelId", Long.valueOf(labelId));
+		}
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+
+		params = queryTimeParse(startTime, endTime, validTime, null, params);
+
+		logger.debug("params = {}", JSON.toJSONString(params));
+
 		List<ContractVo> list = contractService.selectListByManage(params);
 
 		List<Map<String, Object>> result = new ArrayList<>();
-
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 
 		for (ContractVo vo : list) {
 
@@ -89,6 +114,12 @@ public class ContractController extends BaseController {
 			map.put("startTime", sdf.format(vo.getStartTime()));
 			map.put("endTime", sdf.format(vo.getEndTime()));
 
+			if (!StringUtils.isEmpty(vo.getValidTime())) {
+				map.put("validTime", sdf.format(vo.getValidTime()));
+			} else {
+				map.put("validTime", "");
+			}
+
 			if (vo.getStatus().equals(ContractJoinStatusEnum.waitmine.toString())) {
 				map.put("status", "待我签");
 			} else if(vo.getStatus().equals(ContractJoinStatusEnum.complete.toString())) {
@@ -99,6 +130,120 @@ public class ContractController extends BaseController {
 			} else {
 				map.put("status", "待对方签");
 			}
+
+			String labelName = "无";
+			int labelIdQuery = vo.getLabelId();
+			if (labelIdQuery != 0) {
+				Label label = labelService.selectOneById(labelIdQuery);
+				if (label != null) {
+					labelName = label.getLabelName();
+				}
+			}
+			map.put("labelName", labelName);
+
+			result.add(map);
+		}
+
+		return ApiResult.success(request, result);
+	}
+
+	/**
+	 * 即将截止
+	 * @param request
+	 * @return
+	 */
+	@PostMapping("/expire")
+	public ApiResult getExpire(HttpServletRequest request,
+							@RequestParam(value = "search", required = false) String search,
+							@RequestParam(value = "startTime", required = false) String startTime,
+							@RequestParam(value = "endTime", required = false) String endTime,
+							@RequestParam(value = "validTime", required = false) String validTime,
+							   @RequestParam(value = "labelId", required = false) String labelId) {
+
+		Member member;
+		try {
+			member = this.checkLogin(request);
+		} catch (AppRuntimeException e) {
+			return ApiResult.fail(request, e.getReqCode(), e.getMsg());
+		}
+
+		long mid = member.getId();
+
+		Map<String, Object> params = new HashMap<>();
+		params.put("mid", mid);
+		params.put("type", "EXPIRE");
+
+		if (!StringUtils.isEmpty(search)) {
+			params.put("search", search);
+		}
+
+		if (NumberUtil.isNumeric(labelId)) {
+			params.put("labelId", Long.valueOf(labelId));
+		}
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+
+		params = queryTimeParse(startTime, endTime, validTime, null, params);
+
+		logger.debug("params = {}", JSON.toJSONString(params));
+
+		List<ContractVo> list = contractService.selectListByManage(params);
+
+		List<Map<String, Object>> result = new ArrayList<>();
+
+		for (ContractVo vo : list) {
+
+			Map<String, Object> map = new HashMap<>();
+			map.put("id", vo.getId());
+			map.put("contract", vo.getContractName());
+
+			if (vo.getRole().equals(ContractJoinRoleEnum.initiator.toString())) {
+				map.put("initiator", "我");
+			} else {
+				params = new HashMap<>();
+				params.put("contractId", vo.getId());
+				params.put("role", "initiator");
+				List<ContractJoin> contractJoins = contractJoinService.selectList(params);
+				map.put("initiator", contractJoins.get(0).getName());
+			}
+
+			map.put("startTime", sdf.format(vo.getStartTime()));
+			map.put("endTime", sdf.format(vo.getEndTime()));
+
+			if (!StringUtils.isEmpty(vo.getValidTime())) {
+				map.put("validTime", sdf.format(vo.getValidTime()));
+			} else {
+				map.put("validTime", "");
+			}
+
+			if (vo.getStatus().equals(ContractJoinStatusEnum.waitmine.toString())) {
+				map.put("status", "待我签");
+			} else if(vo.getStatus().equals(ContractJoinStatusEnum.complete.toString())) {
+				map.put("status", "已完成");
+			} else if(vo.getStatus().equals(ContractJoinStatusEnum.refuse.toString())
+					|| vo.getStatus().equals(ContractJoinStatusEnum.refuseother.toString())) {
+				map.put("status", "已拒签/被拒签");
+			} else {
+				map.put("status", "待对方签");
+			}
+
+			String labelName = "无";
+			int labelIdQuery = vo.getLabelId();
+			if (labelIdQuery != 0) {
+				Label label = labelService.selectOneById(labelIdQuery);
+				if (label != null) {
+					labelName = label.getLabelName();
+				}
+			}
+			map.put("labelName", labelName);
+
+			long remainDays = DateUtil.until(vo.getEndTime());
+			if (remainDays < 0) {
+				map.put("remainTime", "已截止");
+			} else {
+				map.put("remainTime", "还有" + remainDays + "天截止");
+			}
+
 			result.add(map);
 		}
 
@@ -111,7 +256,12 @@ public class ContractController extends BaseController {
 	 * @return
 	 */
 	@PostMapping("/waitmine")
-	public ApiResult getWaitMine(HttpServletRequest request) {
+	public ApiResult getWaitMine(HttpServletRequest request,
+								 @RequestParam(value = "search", required = false) String search,
+								 @RequestParam(value = "startTime", required = false) String startTime,
+								 @RequestParam(value = "endTime", required = false) String endTime,
+								 @RequestParam(value = "validTime", required = false) String validTime,
+								 @RequestParam(value = "labelId", required = false) String labelId) {
 
 		Member member;
 		try {
@@ -125,11 +275,23 @@ public class ContractController extends BaseController {
 		Map<String, Object> params = new HashMap<>();
 		params.put("mid", mid);
 		params.put("type", "MINE");
+
+		if (!StringUtils.isEmpty(search)) {
+			params.put("search", search);
+		}
+
+		if (NumberUtil.isNumeric(labelId)) {
+			params.put("labelId", Long.valueOf(labelId));
+		}
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+
+		params = queryTimeParse(startTime, endTime, validTime, null, params);
+		logger.debug("params = {}", JSON.toJSONString(params));
+
 		List<ContractVo> list = contractService.selectListByManage(params);
 
 		List<Map<String, Object>> result = new ArrayList<>();
-
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 
 		for (ContractVo vo : list) {
 
@@ -147,8 +309,31 @@ public class ContractController extends BaseController {
 				map.put("initiator", contractJoins.get(0).getName());
 			}
 
+			String labelName = "无";
+			int labelIdQuery = vo.getLabelId();
+			if (labelIdQuery != 0) {
+				Label label = labelService.selectOneById(labelIdQuery);
+				if (label != null) {
+					labelName = label.getLabelName();
+				}
+			}
+			map.put("labelName", labelName);
+
 			map.put("startTime", sdf.format(vo.getStartTime()));
 			map.put("endTime", sdf.format(vo.getEndTime()));
+
+			if (!StringUtils.isEmpty(vo.getValidTime())) {
+				map.put("validTime", sdf.format(vo.getValidTime()));
+			} else {
+				map.put("validTime", "");
+			}
+
+			long remainDays = DateUtil.until(vo.getEndTime());
+			if (remainDays < 0) {
+				map.put("remainTime", "已截止");
+			} else {
+				map.put("remainTime", "还有" + remainDays + "天截止");
+			}
 
 			result.add(map);
 		}
@@ -162,7 +347,12 @@ public class ContractController extends BaseController {
 	 * @return
 	 */
 	@PostMapping("/waitother")
-	public ApiResult getWaitOther(HttpServletRequest request) {
+	public ApiResult getWaitOther(HttpServletRequest request,
+								  @RequestParam(value = "search", required = false) String search,
+								  @RequestParam(value = "startTime", required = false) String startTime,
+								  @RequestParam(value = "endTime", required = false) String endTime,
+								  @RequestParam(value = "validTime", required = false) String validTime,
+								  @RequestParam(value = "labelId", required = false) String labelId) {
 
 
 		Member member;
@@ -177,11 +367,23 @@ public class ContractController extends BaseController {
 		Map<String, Object> params = new HashMap<>();
 		params.put("mid", mid);
 		params.put("type", "OTHER");
+
+		if (!StringUtils.isEmpty(search)) {
+			params.put("search", search);
+		}
+
+		if (NumberUtil.isNumeric(labelId)) {
+			params.put("labelId", Long.valueOf(labelId));
+		}
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+
+		params = queryTimeParse(startTime, endTime, validTime, null, params);
+		logger.debug("params = {}", JSON.toJSONString(params));
+
 		List<ContractVo> list = contractService.selectListByManage(params);
 
 		List<Map<String, Object>> result = new ArrayList<>();
-
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 
 		for (ContractVo vo : list) {
 
@@ -206,6 +408,29 @@ public class ContractController extends BaseController {
 			map.put("startTime", sdf.format(vo.getStartTime()));
 			map.put("endTime", sdf.format(vo.getEndTime()));
 
+			if (!StringUtils.isEmpty(vo.getValidTime())) {
+				map.put("validTime", sdf.format(vo.getValidTime()));
+			} else {
+				map.put("validTime", "");
+			}
+
+			String labelName = "无";
+			int labelIdQuery = vo.getLabelId();
+			if (labelIdQuery != 0) {
+				Label label = labelService.selectOneById(labelIdQuery);
+				if (label != null) {
+					labelName = label.getLabelName();
+				}
+			}
+			map.put("labelName", labelName);
+
+			long remainDays = DateUtil.until(vo.getEndTime());
+			if (remainDays < 0) {
+				map.put("remainTime", "已截止");
+			} else {
+				map.put("remainTime", "还有" + remainDays + "天截止");
+			}
+
 			result.add(map);
 		}
 
@@ -218,7 +443,13 @@ public class ContractController extends BaseController {
 	 * @return
 	 */
 	@PostMapping("/complete")
-	public ApiResult getComplete(HttpServletRequest request) {
+	public ApiResult getComplete(HttpServletRequest request,
+								 @RequestParam(value = "search", required = false) String search,
+								 @RequestParam(value = "startTime", required = false) String startTime,
+								 @RequestParam(value = "endTime", required = false) String endTime,
+								 @RequestParam(value = "validTime", required = false) String validTime,
+								 @RequestParam(value = "completeTime", required = false) String completeTime,
+								 @RequestParam(value = "labelId", required = false) String labelId) {
 
 
 		Member member;
@@ -233,6 +464,16 @@ public class ContractController extends BaseController {
 		Map<String, Object> params = new HashMap<>();
 		params.put("mid", mid);
 		params.put("type", "COMPLETE");
+		if (!StringUtils.isEmpty(search)) {
+			params.put("search", search);
+		}
+
+		if (NumberUtil.isNumeric(labelId)) {
+			params.put("labelId", Long.valueOf(labelId));
+		}
+
+		params = queryTimeParse(startTime, endTime, validTime, completeTime, params);
+		logger.debug("params = {}", JSON.toJSONString(params));
 		List<ContractVo> list = contractService.selectListByManage(params);
 
 		List<Map<String, Object>> result = new ArrayList<>();
@@ -248,6 +489,13 @@ public class ContractController extends BaseController {
 			String signin = "";
 			String fileHash = "";
 			String signatureFlag = "N";
+			String isShowArchive = "N";
+
+			if (vo.getContractStatus().equals(ContractStatusEnum.complete.toString())
+					|| vo.getContractStatus().equals(ContractStatusEnum.fail.toString())) {
+				isShowArchive = "Y";
+			}
+
 			params = new HashMap<>();
 			params.put("contractId", vo.getId());
 			List<ContractJoin> contractJoins = contractJoinService.selectList(params);
@@ -270,17 +518,90 @@ public class ContractController extends BaseController {
 				fileHash = contractJoin.getFileHash();
 			}
 
+			String labelName = "无";
+			int labelIdQuery = vo.getLabelId();
+			if (labelIdQuery != 0) {
+				Label label = labelService.selectOneById(labelIdQuery);
+				if (label != null) {
+					labelName = label.getLabelName();
+				}
+			}
+
 			map.put("signin", signin);
 
 			map.put("startTime", sdf.format(vo.getStartTime()));
 			map.put("endTime", sdf.format(vo.getEndTime()));
+
+			if (!StringUtils.isEmpty(vo.getCompleteTime())) {
+				map.put("completeTime", sdf.format(vo.getCompleteTime()));
+			} else {
+				map.put("completeTime", "");
+			}
+
+			if (!StringUtils.isEmpty(vo.getValidTime())) {
+				map.put("validTime", sdf.format(vo.getValidTime()));
+			} else {
+				map.put("validTime", "");
+			}
+
 			map.put("fileHash", fileHash);
 			map.put("flag", signatureFlag);
+			map.put("labelName", labelName);
+			map.put("isShowArchive", isShowArchive);
 
 			result.add(map);
 		}
 
 		return ApiResult.success(request, result);
+	}
+
+	private Map<String, Object> queryTimeParse(String startTime, String endTime, String validTime, String completeTime, Map<String, Object> params) {
+
+		logger.debug("queryTimeParse begin startTime = {}, endTime = {}, validTime = {}, completeTime = {}, params = {}", startTime, endTime, validTime, completeTime, JSON.toJSON(params));
+
+		if (!StringUtils.isEmpty(startTime)) {
+			String[] startTimes = startTime.split("-");
+			if (startTimes.length == 2) {
+				if (!StringUtils.isEmpty(startTimes[0]) && !StringUtils.isEmpty(startTimes[1])) {
+					params.put("startTimeBegin", startTimes[0]);
+					params.put("startTimeEnd", startTimes[1]);
+				}
+			}
+		}
+
+		if (!StringUtils.isEmpty(endTime)) {
+			String[] endTimes = endTime.split("-");
+			if (endTimes.length == 2) {
+				if (!StringUtils.isEmpty(endTimes[0]) && !StringUtils.isEmpty(endTimes[1])) {
+					params.put("endTimeBegin", endTimes[0]);
+					params.put("endTimeEnd", endTimes[1]);
+				}
+			}
+		}
+
+		if (!StringUtils.isEmpty(validTime)) {
+			String[] validTimes = validTime.split("-");
+			if (validTimes.length == 2) {
+				if (!StringUtils.isEmpty(validTimes[0]) && !StringUtils.isEmpty(validTimes[1])) {
+					params.put("validTimeBegin", validTimes[0]);
+					params.put("validTimeEnd", validTimes[1]);
+				}
+			}
+		}
+
+		if (!StringUtils.isEmpty(completeTime)) {
+			String[] completeTimes = completeTime.split("-");
+			if (completeTimes.length == 2) {
+				if (!StringUtils.isEmpty(completeTimes[0]) && !StringUtils.isEmpty(completeTimes[1])) {
+					params.put("completeTimeBegin", completeTimes[0]);
+					params.put("completeTimeEnd", completeTimes[1]);
+				}
+			}
+		}
+
+		logger.debug("queryTimeParse end params = {}", JSON.toJSON(params));
+
+		return params;
 	}
 
 	/**
@@ -289,7 +610,9 @@ public class ContractController extends BaseController {
 	 * @return
 	 */
 	@PostMapping("/refuse")
-	public ApiResult getRefuse(HttpServletRequest request) {
+	public ApiResult getRefuse(HttpServletRequest request,
+							   @RequestParam(value = "search", required = false) String search,
+							   @RequestParam(value = "labelId", required = false) String labelId) {
 
 
 		Member member;
@@ -304,6 +627,14 @@ public class ContractController extends BaseController {
 		Map<String, Object> params = new HashMap<>();
 		params.put("mid", mid);
 		params.put("type", "REFUSE");
+		if (!StringUtils.isEmpty(search)) {
+			params.put("search", search);
+		}
+
+		if (NumberUtil.isNumeric(labelId)) {
+			params.put("labelId", Long.valueOf(labelId));
+		}
+
 		List<ContractVo> list = contractService.selectListByManage(params);
 
 		List<Map<String, Object>> result = new ArrayList<>();
@@ -315,6 +646,14 @@ public class ContractController extends BaseController {
 			Map<String, Object> map = new HashMap<>();
 			map.put("id", vo.getId());
 			map.put("contract", vo.getContractName());
+
+			String isShowArchive = "N";
+			if (vo.getContractStatus().equals(ContractStatusEnum.complete.toString())
+					|| vo.getContractStatus().equals(ContractStatusEnum.fail.toString())) {
+				isShowArchive = "Y";
+			}
+
+			map.put("isShowArchive", isShowArchive);
 
 			params = new HashMap<>();
 			params.put("contractId", vo.getId());
@@ -340,6 +679,16 @@ public class ContractController extends BaseController {
 
 			}
 
+			String labelName = "无";
+			int labelIdQuery = vo.getLabelId();
+			if (labelIdQuery != 0) {
+				Label label = labelService.selectOneById(labelIdQuery);
+				if (label != null) {
+					labelName = label.getLabelName();
+				}
+			}
+			map.put("labelName", labelName);
+
 			map.put("startTime", sdf.format(vo.getStartTime()));
 
 			result.add(map);
@@ -354,7 +703,7 @@ public class ContractController extends BaseController {
 	 * @return
 	 */
 	@PostMapping("/draft")
-	public ApiResult getDraft(HttpServletRequest request) {
+	public ApiResult getDraft(HttpServletRequest request, @RequestParam(value = "search", required = false) String search) {
 
 
 		Member member;
@@ -369,6 +718,9 @@ public class ContractController extends BaseController {
 		Map<String, Object> params = new HashMap<>();
 		params.put("mid", mid);
 		params.put("type", "DRAFT");
+		if (!StringUtils.isEmpty(search)) {
+			params.put("search", search);
+		}
 		List<ContractVo> list = contractService.selectListByManage(params);
 
 		List<Map<String, Object>> result = new ArrayList<>();
@@ -437,7 +789,7 @@ public class ContractController extends BaseController {
 
 		Map<String, Object> params = new HashMap<>();
 		params.put("contractId", Long.valueOf(id));
-		params.put("role", ContractJoinRoleEnum.initiator);
+		params.put("role", ContractJoinRoleEnum.initiator.toString());
 		List<ContractJoin> contractJoins = contractJoinService.selectList(params);
 
 		long initiatorId = contractJoins.get(0).getMid();
@@ -539,6 +891,9 @@ public class ContractController extends BaseController {
 			if (contractJoin.getMid() == mid) {
 				flag = true;
 				signTime = contractJoin.getSignTime();
+				if (contractJoin.getIsArchive().equals('Y')) {
+					return ApiResult.fail(request, "合同已归档");
+				}
 			}
 
 			if (contractJoin.getRole().equals(ContractJoinRoleEnum.initiator.toString())) {
@@ -575,6 +930,7 @@ public class ContractController extends BaseController {
 			result.put("contractName", contract.getContractName());
 			result.put("contractStatus", ContractStatusEnum.valueOf(contract.getStatus()).getDesc());
 			result.put("contractUrl", contract.getContractUrl());
+			result.put("contractSourceUrl", contract.getContractSourceUrl());
 			result.put("contractNo", contract.getContractNo());
 			result.put("startTime", sdf.format(contract.getStartTime()));
 			result.put("endTime", sdf.format(contract.getEndTime()));
@@ -632,6 +988,10 @@ public class ContractController extends BaseController {
 			return ApiResult.fail(request, "查询合同信息失败");
 		}
 		ContractJoin contractJoin = contractJoins.get(0);
+
+		if (contractJoin.getIsArchive().equals("Y")) {
+			return ApiResult.fail(request, "合同已归档");
+		}
 
 		Map<String, Object> result = new HashMap<>();
 
@@ -760,6 +1120,9 @@ public class ContractController extends BaseController {
 
 			if (contractJoin.getMid() == mid) {
 				flag = true;
+				if (contractJoin.getIsArchive().equals("Y")) {
+					return ApiResult.fail(request, "合同已归档");
+				}
 			}
 
 			Map<String, Object> role = new HashMap<>();
@@ -821,6 +1184,10 @@ public class ContractController extends BaseController {
 			return ApiResult.fail(request, "联系人MID不能为空");
 		}
 
+		if (StringUtils.isEmpty(addDraftRequest.getContractSourceUrl())) {
+			return ApiResult.fail(request, "原合同地址不能为空");
+		}
+
 		String[] contractMids = addDraftRequest.getContactMids().split(",");
 		List<Integer> conMids = new ArrayList<>();
 		for (String contactMid : contractMids) {
@@ -847,11 +1214,19 @@ public class ContractController extends BaseController {
 			}
 		}
 
+		int labelId = 0;
+		if (NumberUtil.isNumeric(addDraftRequest.getLabelId())) {
+			Label label = labelService.selectOneById(Integer.valueOf(addDraftRequest.getLabelId()));
+			if (label != null && label.getMid() == mid) {
+				labelId = Integer.valueOf(addDraftRequest.getLabelId());
+			}
+		}
+
 		Map<String, Object> result = new HashMap<>();
 		try {
-			int id = contractService.addContract((int) mid, contractName, addDraftRequest.getEndTime(),
+			int id = contractService.addContract((int) mid, contractName, addDraftRequest.getEndTime(), addDraftRequest.getValidTime(), labelId,
 					remark, addDraftRequest.getSecretContract(), addDraftRequest.getContractUrl(),
-					ContractStatusEnum.draft, conMids);
+					ContractStatusEnum.draft, addDraftRequest.getContractSourceUrl(), null, conMids);
 			result.put("id", id);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -869,7 +1244,7 @@ public class ContractController extends BaseController {
      * @return
      */
 	@PostMapping("/updateDraft")
-	public ApiResult updateDraft(HttpServletRequest request, String id, String contractUrl) {
+	public ApiResult updateDraft(HttpServletRequest request, String id, String contractUrl, String contractSourceUrl) {
 
 		Member member;
 		try {
@@ -888,8 +1263,12 @@ public class ContractController extends BaseController {
 			return ApiResult.fail(request, "入参合同地址不能为空");
 		}
 
+		if (StringUtils.isEmpty(contractSourceUrl)) {
+			return ApiResult.fail(request, "入参原合同地址不能为空");
+		}
+
 		try {
-			contractService.updateContract(Integer.parseInt(id), (int) mid, contractUrl);
+			contractService.updateContract(Integer.parseInt(id), (int) mid, contractUrl, contractSourceUrl);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ApiResult.fail(request, e.getMessage());
@@ -921,10 +1300,15 @@ public class ContractController extends BaseController {
 
 		logger.debug("sessionId:{}, 签约验证码为:{}", request.getSession().getId(), code);
 
-		Map<String, Object> result = new HashMap<>();
-		result.put("code", code);
+		String msg = "您好，您的合同签约验证码是" + code;
+		boolean flag = SmsSendUtil.sendSms(phone, msg);
 
-		return ApiResult.success(request, result);
+		if (!flag) {
+			return ApiResult.fail(request, "短信发送失败,请稍后重试");
+		}
+
+		return ApiResult.success(request);
+
 	}
 
 	/**
@@ -959,6 +1343,10 @@ public class ContractController extends BaseController {
 
 		request.getSession().removeAttribute(SIGNING_VERIFY_CODE_SESSION_KEY);
 
+		if (StringUtils.isEmpty(initiateSigningRequest.getPrivateKeyPwd())) {
+			return ApiResult.fail(request, "密码不能为空");
+		}
+
 		Map<String, Object> result = new HashMap<>();
 		if (!NumberUtil.isNumeric(initiateSigningRequest.getId()) || initiateSigningRequest.getId().equals("0")) {
 			//新增签约
@@ -978,6 +1366,10 @@ public class ContractController extends BaseController {
 				return ApiResult.fail(request, "联系人MID不能为空");
 			}
 
+			if (StringUtils.isEmpty(initiateSigningRequest.getContractSourceUrl())) {
+				return ApiResult.fail(request, "原合同地址不能为空");
+			}
+
 			String[] contractMids = initiateSigningRequest.getContactMids().split(",");
 			List<Integer> conMids = new ArrayList<>();
 			for (String contactMid : contractMids) {
@@ -988,13 +1380,21 @@ public class ContractController extends BaseController {
 				}
 			}
 
+			int labelId = 0;
+			if (NumberUtil.isNumeric(initiateSigningRequest.getLabelId())) {
+				Label label = labelService.selectOneById(Integer.valueOf(initiateSigningRequest.getLabelId()));
+				if (label != null && label.getMid() == mid) {
+					labelId = Integer.valueOf(initiateSigningRequest.getLabelId());
+				}
+			}
+
 			try {
-				int id = contractService.addContract((int) mid, initiateSigningRequest.getContractName(), initiateSigningRequest.getEndTime(),
+				int id = contractService.addContract((int) mid, initiateSigningRequest.getContractName(), initiateSigningRequest.getEndTime(), initiateSigningRequest.getValidTime(), labelId,
 						initiateSigningRequest.getRemark(), initiateSigningRequest.getSecretContract(), initiateSigningRequest.getContractUrl(),
-						ContractStatusEnum.signing, conMids);
+						ContractStatusEnum.signing, initiateSigningRequest.getContractSourceUrl(), initiateSigningRequest.getPrivateKeyPwd(), conMids);
 				result.put("id", id);
 			} catch (Exception e) {
-				e.printStackTrace();
+				logger.error("发起签约失败", e);
 				return ApiResult.fail(request, "发起签约失败");
 			}
 
@@ -1005,9 +1405,9 @@ public class ContractController extends BaseController {
 			}
 
 			try {
-				contractService.draftToSigning(Long.parseLong(initiateSigningRequest.getId()), (int) mid, initiateSigningRequest.getContractUrl());
+				contractService.draftToSigning(Long.parseLong(initiateSigningRequest.getId()), (int) mid, initiateSigningRequest.getContractUrl(), initiateSigningRequest.getContractSourceUrl(), initiateSigningRequest.getPrivateKeyPwd());
 				result.put("id", initiateSigningRequest.getId());
-			} catch (AppRuntimeException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 				return ApiResult.fail(request, "发起签约失败");
 			}
@@ -1026,7 +1426,7 @@ public class ContractController extends BaseController {
      * @return
      */
 	@PostMapping("/signing")
-	public ApiResult signing(HttpServletRequest request, String id, @RequestParam(value="contractUrl", required = false) String contractUrl, String signFlag, String verifyCode) {
+	public ApiResult signing(HttpServletRequest request, String id, @RequestParam(value="contractUrl", required = false) String contractUrl, String signFlag, String verifyCode, String privateKeyPwd) {
 
 		Member member;
 		try {
@@ -1055,6 +1455,10 @@ public class ContractController extends BaseController {
 			return ApiResult.fail(request, "入参合同ID不正确");
 		}
 
+		if (signFlag.equals("Y") && StringUtils.isEmpty(privateKeyPwd)) {
+			return ApiResult.fail(request, "密码不能为空");
+		}
+
 		if (StringUtils.isEmpty(signFlag) || (!signFlag.equals("Y") && !signFlag.equals("N"))) {
 			return ApiResult.fail(request, "同意或拒签标示错误");
 		}
@@ -1065,8 +1469,9 @@ public class ContractController extends BaseController {
 
 		Map<String, Object> result;
 		try {
-			result = contractService.signing(Long.valueOf(id), (int) mid, signFlag, contractUrl);
+			result = contractService.signing(Long.valueOf(id), (int) mid, signFlag, contractUrl, privateKeyPwd);
 		} catch (Exception e) {
+			logger.error("签署失败", e);
 			return ApiResult.fail(request, e.getMessage());
 		}
 
@@ -1080,6 +1485,7 @@ public class ContractController extends BaseController {
 	 * @param signature 用户加密签名,用逗号分割
      * @return
      */
+/*
 	@PostMapping("/saveSignature")
 	public ApiResult saveSignature(HttpServletRequest request, String id, String signature) {
 
@@ -1111,6 +1517,7 @@ public class ContractController extends BaseController {
 
 		return ApiResult.success(request, result);
 	}
+*/
 
 	/**
 	 * 查询合同状态
@@ -1146,27 +1553,135 @@ public class ContractController extends BaseController {
 	}
 
 	/**
+	 * 修改合同标签
+	 * @param request
+	 * @param id
+	 * @return
+	 */
+	@PostMapping("/updateLabel")
+	public ApiResult updateLabel(HttpServletRequest request, String id, String labelId) {
+
+		Member member;
+		try {
+			member = this.checkLogin(request);
+		} catch (AppRuntimeException e) {
+			return ApiResult.fail(request, e.getReqCode(), e.getMsg());
+		}
+
+		long mid = member.getId();
+
+		if (!NumberUtil.isNumeric(id)) {
+			ApiResult.fail(request, "入参合同ID不正确");
+		}
+
+		if (!NumberUtil.isNumeric(labelId)) {
+			ApiResult.fail(request, "入参标签ID不正确");
+		}
+
+		Contract contract = contractService.selectOneById(Long.valueOf(id));
+
+		logger.debug("contract = {}", JSON.toJSONString(contract));
+
+		if (contract == null) {
+			ApiResult.fail(request, "合同不存在");
+		}
+
+		Map<String, Object> params = new HashMap<>();
+		params.put("contractId", id);
+		params.put("mid", mid);
+		List<ContractJoin> contractJoins = contractJoinService.selectList(params);
+
+		if (contractJoins.size() < 1) {
+			return ApiResult.fail(request, "合同信息有误");
+		}
+
+		Label label = labelService.selectOneById(Long.valueOf(labelId));
+		if (label == null) {
+			return ApiResult.fail(request, "标签不存在");
+		}
+
+		if (label.getMid() != mid) {
+			return ApiResult.fail(request, "非法操作");
+		}
+
+		ContractJoin contractJoin = contractJoins.get(0);
+		logger.debug("contractJoin = {}", JSON.toJSONString(contractJoin));
+
+		contractJoin.setLabelId(Integer.valueOf(labelId));
+		contractJoinService.updateContractJoin(contractJoin);
+
+		return ApiResult.success(request);
+	}
+
+	/**
+	 * 归档合同
+	 * @param request
+	 * @param id  合同ID
+     * @return
+     */
+	@PostMapping("/archive")
+	public ApiResult archive(HttpServletRequest request, String id) {
+
+		Member member;
+		try {
+			member = this.checkLogin(request);
+		} catch (AppRuntimeException e) {
+			return ApiResult.fail(request, e.getReqCode(), e.getMsg());
+		}
+
+		long mid = member.getId();
+
+		if (!NumberUtil.isNumeric(id)) {
+			ApiResult.fail(request, "入参合同ID不正确");
+		}
+
+		Contract contract = contractService.selectOneById(Long.valueOf(id));
+
+		if (contract == null) {
+			return ApiResult.fail(request, "合同信息不存在");
+		}
+
+		if (contract.getStatus().equals(ContractStatusEnum.complete.toString())
+				|| contract.getStatus().equals(ContractStatusEnum.fail.toString())) {
+			Map<String, Object> params = new HashMap<>();
+			params.put("mid", mid);
+			params.put("contractId", Long.valueOf(id));
+			List<ContractJoin> contractJoins = contractJoinService.selectList(params);
+			if (contractJoins.size() < 1) {
+				return ApiResult.fail(request, "非法操作");
+			}
+
+			ContractJoin contractJoin = contractJoins.get(0);
+			contractJoin.setIsArchive("Y");
+			contractJoinService.updateContractJoin(contractJoin);
+
+		} else {
+			return ApiResult.fail(request, "合同状态不正确");
+		}
+
+		return ApiResult.success(request);
+	}
+
+	/**
 	 * 定时任务,查询待解锁交易合同
 	 */
 	@Scheduled(cron = "0/30 * * * * ?")
-	public void unlockTransaction() {
-		logger.debug("unlockTransaction start");
+	public void transaction() {
+		logger.debug("transaction start");
 		//获取已锁定交易的合同数据
 		Map<String, Object> params = new HashMap<>();
 		params.put("status", ContractStatusEnum.registered.toString());
-		params.put("unlock", "unlock");
 		List<Contract> contracts = contractService.selectList(params);
 		for (Contract contract : contracts) {
-			logger.debug("unlockTransaction contract = {}", JSON.toJSONString(contract));
+			logger.debug("transaction contract = {}", JSON.toJSONString(contract));
 			try {
-				contractService.unlock(contract.getId());
+				contractService.transaction(contract.getId());
 			} catch (Exception e) {
-				logger.debug("unlock is error! e = {}", e.toString());
-				logger.debug("e = {}", JSON.toJSONString(e));
+				logger.error("上链失败 id = " + contract.getId(), e);
 			}
 		}
 
-		logger.debug("unlockTransaction end");
+		logger.debug("transaction end");
 	}
 }
 

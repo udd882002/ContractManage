@@ -5,10 +5,12 @@ import com.seven.contract.manage.common.ApiResult;
 import com.seven.contract.manage.common.AppRuntimeException;
 import com.seven.contract.manage.common.BaseController;
 import com.seven.contract.manage.controller.member.data.request.RegisteredRequest;
+import com.seven.contract.manage.enums.MemberTypeEnum;
 import com.seven.contract.manage.model.Member;
 import com.seven.contract.manage.service.MemberService;
 import com.seven.contract.manage.utils.MobileUtils;
 import com.seven.contract.manage.utils.NumberUtil;
+import com.seven.contract.manage.utils.SmsSendUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -49,10 +51,14 @@ public class MemberController extends BaseController {
 
 		logger.debug("sessionId:{}, 登陆验证码为:{}", request.getSession().getId(), code);
 
-		Map<String, Object> result = new HashMap<>();
-		result.put("code", code);
+		String msg = "您好，您的登陆验证码是" + code;
+		boolean flag = SmsSendUtil.sendSms(phone, msg);
 
-		return ApiResult.success(request, result);
+		if (!flag) {
+			return ApiResult.fail(request, "短信发送失败,请稍后重试");
+		}
+
+		return ApiResult.success(request);
 	}
 
 	@PostMapping("/login")
@@ -76,7 +82,7 @@ public class MemberController extends BaseController {
 
 		Member member = memberService.selectOneByPhone(phone);
 		if (member == null) {
-			return ApiResult.fail(request, "登陆失败");
+			return ApiResult.fail(request, "用户不存在");
 		}
 
 		request.getSession().setAttribute(MEMBER_SESSION_KEY, member);
@@ -99,10 +105,15 @@ public class MemberController extends BaseController {
 
 		logger.debug("注册验证码为:{}", code);
 
-		Map<String, Object> result = new HashMap<>();
-		result.put("code", code);
+		String msg = "您好，您的注册验证码是" + code;
+		boolean flag = SmsSendUtil.sendSms(phone, msg);
 
-		return ApiResult.success(request, result);
+		if (!flag) {
+			return ApiResult.fail(request, "短信发送失败,请稍后重试");
+		}
+
+		return ApiResult.success(request);
+
 	}
 
 	/**
@@ -114,6 +125,10 @@ public class MemberController extends BaseController {
 	@PostMapping("/registered")
 	public ApiResult registered(HttpServletRequest request, RegisteredRequest registeredRequest) {
 
+		if (StringUtils.isEmpty(registeredRequest.getType())
+				|| MemberTypeEnum.valueOf(registeredRequest.getType()) == null) {
+			return ApiResult.fail(request, "用户类型不正确");
+		}
 
 		if (StringUtils.isEmpty(registeredRequest.getVerifyCode())) {
 			return ApiResult.fail(request, "验证码不能为空");
@@ -125,6 +140,16 @@ public class MemberController extends BaseController {
 
 		if (StringUtils.isEmpty(registeredRequest.getName())) {
 			return ApiResult.fail(request, "姓名不能为空");
+		}
+
+		if (registeredRequest.getType().equals(MemberTypeEnum.company.toString())) {
+			if (StringUtils.isEmpty(registeredRequest.getCreditCode())) {
+				return ApiResult.fail(request, "统一社会信用代码不能为空");
+			}
+		}
+
+		if (StringUtils.isEmpty(registeredRequest.getPrivateKeyPwd())) {
+			return ApiResult.fail(request, "密码不能为空");
 		}
 
 		Object object = request.getSession().getAttribute(REGISTERED_VERIFY_CODE_SESSION_KEY);
@@ -146,22 +171,23 @@ public class MemberController extends BaseController {
 			return ApiResult.fail(request, "用户已存在");
 		}
 
-		member = memberService.selectOneByPublicKeys(registeredRequest.getPublicKeys());
-		if (member != null) {
-			return ApiResult.fail(request, "公钥已存在");
-		}
 
 		member = new Member();
+		member.setType(registeredRequest.getType());
 		member.setName(registeredRequest.getName());
 		member.setPhone(registeredRequest.getPhone());
 		member.setIdCard(registeredRequest.getIdCard());
 		member.setMemberImg(registeredRequest.getMemberImg());
 		member.setIdCardFrontImg(registeredRequest.getIdCardFrontImg());
 		member.setIdCardBackImg(registeredRequest.getIdCardBackImg());
-		member.setPrivateKeysFileUrl(registeredRequest.getPrivateKeysFileUrl());
-		member.setPublicKeys(registeredRequest.getPublicKeys());
+		member.setCreditCode(registeredRequest.getCreditCode());
 		member.setAddTime(new Date());
-		memberService.addMember(member);
+		try {
+			memberService.addMember(member, registeredRequest.getPrivateKeyPwd());
+		} catch (Exception e) {
+			logger.error("注册失败", e);
+			return ApiResult.fail(request, e.getMessage());
+		}
 
 		request.getSession().setAttribute(LOGIN_VERIFY_CODE_SESSION_KEY, member);
 
@@ -275,6 +301,20 @@ public class MemberController extends BaseController {
 		memberService.updateMember(member);
 
 		request.getSession().setAttribute(LOGIN_VERIFY_CODE_SESSION_KEY, member);
+
+		return ApiResult.success(request);
+	}
+
+	@PostMapping("/loginOut")
+	public ApiResult loginOut(HttpServletRequest request) {
+
+		try {
+			this.checkLogin(request);
+		} catch (AppRuntimeException e) {
+			return ApiResult.fail(request, e.getReqCode(), e.getMsg());
+		}
+
+		request.getSession().removeAttribute(MEMBER_SESSION_KEY);
 
 		return ApiResult.success(request);
 	}

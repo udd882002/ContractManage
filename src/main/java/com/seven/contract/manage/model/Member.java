@@ -63,10 +63,24 @@ public class Member implements Serializable {
 	private String position;
 
 	/**
+	 * 统一社会信用代码
+	 */
+	private String creditCode;
+
+	/**
 	 *	注册时间
 	 */
 	private java.util.Date addTime;
 
+	/**
+	 * 类型 personal：个人 company：企业
+	 */
+	private String type;
+
+	/**
+	 * CA认证信息
+	 */
+	private String caCert;
 
 
 	public void setId(int id){
@@ -166,4 +180,27 @@ public class Member implements Serializable {
 		return this.addTime;
 	}
 
+	public String getCreditCode() {
+		return creditCode;
+	}
+
+	public void setCreditCode(String creditCode) {
+		this.creditCode = creditCode;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getCaCert() {
+		return caCert;
+	}
+
+	public void setCaCert(String caCert) {
+		this.caCert = caCert;
+	}
 }
