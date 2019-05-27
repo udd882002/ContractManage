@@ -12,18 +12,18 @@ import org.springframework.context.annotation.PropertySource;
 @PropertySource("classpath:sms.properties")
 public class SmsProperties {
 
-    public static String domain;
+    public static String url;
 
     public static String account;
 
     public static String pswd;
 
-    public String getDomain() {
-        return domain;
+    public String getUrl() {
+        return url;
     }
 
-    public void setDomain(String domain) {
-        SmsProperties.domain = domain;
+    public void setUrl(String url) {
+        SmsProperties.url = url;
     }
 
     public String getPswd() {

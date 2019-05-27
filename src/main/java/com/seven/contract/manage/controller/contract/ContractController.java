@@ -1300,7 +1300,7 @@ public class ContractController extends BaseController {
 
 		logger.debug("sessionId:{}, 签约验证码为:{}", request.getSession().getId(), code);
 
-		String msg = "您好，您的合同签约验证码是" + code;
+		String msg = "【区块链合同】您的验证码：" + code + "，您正在对合同进行签名，请谨慎操作！";
 		boolean flag = SmsSendUtil.sendSms(phone, msg);
 
 		if (!flag) {
@@ -1308,6 +1308,11 @@ public class ContractController extends BaseController {
 		}
 
 		return ApiResult.success(request);
+
+//		Map<String, Object> result = new HashMap<>();
+//		result.put("code", code);
+//
+//		return ApiResult.success(request, result);
 
 	}
 

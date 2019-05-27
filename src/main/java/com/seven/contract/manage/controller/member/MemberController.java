@@ -51,7 +51,7 @@ public class MemberController extends BaseController {
 
 		logger.debug("sessionId:{}, 登陆验证码为:{}", request.getSession().getId(), code);
 
-		String msg = "您好，您的登陆验证码是" + code;
+		String msg = "【区块链合同】您的验证码：" + code + "，请尽快输入以完成登录。";
 		boolean flag = SmsSendUtil.sendSms(phone, msg);
 
 		if (!flag) {
@@ -59,6 +59,11 @@ public class MemberController extends BaseController {
 		}
 
 		return ApiResult.success(request);
+
+//		Map<String, Object> result = new HashMap<>();
+//		result.put("code", code);
+//
+//		return ApiResult.success(request, result);
 	}
 
 	@PostMapping("/login")
@@ -105,7 +110,7 @@ public class MemberController extends BaseController {
 
 		logger.debug("注册验证码为:{}", code);
 
-		String msg = "您好，您的注册验证码是" + code;
+		String msg = "【区块链合同】您的验证码：" + code + "，您正在进行区块链合同注册，请勿泄露给他人！";
 		boolean flag = SmsSendUtil.sendSms(phone, msg);
 
 		if (!flag) {
@@ -113,6 +118,11 @@ public class MemberController extends BaseController {
 		}
 
 		return ApiResult.success(request);
+
+//		Map<String, Object> result = new HashMap<>();
+//		result.put("code", code);
+//
+//		return ApiResult.success(request, result);
 
 	}
 

@@ -14,6 +14,26 @@ public class BytomUtil {
 
     private static Logger logger = LoggerFactory.getLogger(BytomUtil.class);
 
+    public static String printHexString(byte[] b) {
+        String key = "";
+
+        for (int i = 0; i < b.length; i++) {
+            String hex = Integer.toHexString(b[i] & 0xFF);
+            if (hex.length() == 1) {
+                hex = '0' + hex;
+            }
+            key += hex.toUpperCase();
+        }
+
+        return key;
+    }
+
+    public static void main(String[] args) {
+        String a = "50cdf0e004a9b6a8fc8db6ddac3cf1bcb82859516b771e79d263a40030f1ca92,304502206C8411D75E6D6346A52772A86FE56FDE946B26A740815CD85BC0BADAF6615CEF022100EE90DE9373E74ED8B5F2EB8C4B1BA998F676E08F82EFD0936A5564ADFE47AA08,3045022071B5AC0434ADCACD286577BC5556ED63DF43AB8030127F36F12918D006E677B2022100BFCBEA42EA00229058A9D1A39AAFE65F8784383265DB2678BA0AE6AB6360A9EE";
+        String hexA = printHexString(a.getBytes());
+        System.out.println(hexA);
+    }
+
     /**
      * 创建客户端连接
      * @return
@@ -30,16 +50,26 @@ public class BytomUtil {
 
         logger.info("before transaction.");
 
+        String hexData = printHexString(data.getBytes());
+
+        logger.debug("hexData = {}", hexData);
+
         Client client = BytomUtil.generateClient();
 
         Transaction.Template retirement = new Transaction.Builder()
                 .addAction(new Transaction.Action.SpendFromAccount()
                         .setAccountAlias(BytomProperties.electronicAccont)
+                        .setAssetAlias("BTM")
+                        .setAmount(10000000)
+                )
+                .addAction(new Transaction.Action.SpendFromAccount()
+                        .setAccountAlias(BytomProperties.electronicAccont)
                         .setAssetAlias(BytomProperties.electronicContract)
                         .setAmount(50)
-                ).addAction(new Transaction.Action.Retire()
+                )
+                .addAction(new Transaction.Action.Retire()
                         .setAssetAlias(BytomProperties.electronicContract)
-                        .setAmount(50).setArbitrary(data)
+                        .setAmount(50).setArbitrary(hexData)
                 ).build(client);
 
         Transaction.Template signedRetirement = new Transaction.SignerBuilder().sign(client,
